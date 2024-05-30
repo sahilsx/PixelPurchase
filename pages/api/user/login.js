@@ -1,5 +1,5 @@
 import connection from "../../../utils/condb"
-import messageHandler from ("../../utils/feature")
+import messageHandler from "../../../utils/feature"
 import User from "../../../models/usermodel"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
@@ -8,11 +8,11 @@ import jwt from "jsonwebtoken"
 
 
 const handler = async (req,res)=>{
-if (req.method !== "post"){
-    return messageHandler(res,400,"Only post methods are Allowed!")
-}
+// if (req.method !== "post"){
+//     return messageHandler(res,400,"Only post methods are Allowed!")
+// }
 try{
-const{email,password} =req.body
+const{email, password} =req.body
 if( email ===""|| password ===""){
     return messageHandler(res,400,"All Credentials Required!")
 }
@@ -26,7 +26,10 @@ if(!user){
 
 
 }
-const comparepass = await bcrypt.compare(password, user.password)
+console.log(password)
+console.log(user.password)
+const comparepass = await bcrypt.compare(password,user.password);
+
 if(!comparepass){
     return messageHandler(res,400,"Incorrect Password!")
 }

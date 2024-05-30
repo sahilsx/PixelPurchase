@@ -7,10 +7,11 @@ const url ="mongodb://localhost:27017/prapp"
 const connection = async ()=>{
 
 
-    if (mongoose.Connections[0].readyState){
-      return;
+  if (mongoose.connections[0].readyState) {
 
-    }
+    return;
+  }
+
 
 
     try{
