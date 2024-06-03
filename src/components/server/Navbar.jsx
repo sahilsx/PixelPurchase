@@ -1,66 +1,56 @@
+"use client";
 import React from 'react';
-import { Container, Typography, Button, Card, CardContent, Grid } from '@mui/material';
-// import { makeStyles } from '@mui/styles';
+import { Container, Typography, Button, Box } from '@mui/material';
+
+const logoContainerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: 5,
+};
+
+const logoCircleStyle = {
+ 
+  marginTop:5,
+
+  width: 50,
+  height: 50,
+  borderRadius: '50%',
+  backgroundColor: 'black',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#fff',
+  marginRight:0.5,
+};
+
+const logoTextStyle = {
+
+  marginTop:5,
+  fontWeight: 'bold',
+  fontSize: '1.5rem',
+  Color: 'black',
+};
 
 const Navbar = () => {
   return (
-    <Container maxWidth="md">
-    <div className="silla">
-      <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-        Internship Opportunities
-      </Typography>
+    <Container maxWidth="md" sx={{height:800,}}>
+      <Box sx={logoContainerStyle}>
+        <Box sx={logoCircleStyle}>
+          <Typography variant="h5">PP</Typography>
+        </Box>
+        <Typography sx={logoTextStyle}>PixelPurchase</Typography>
+      </Box>
       <Typography variant="h5" align="center" color="textSecondary" paragraph>
-        Explore a variety of internships that suit your career interests.
+        Explore a variety of Products that suit your choice.
       </Typography>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px',
-        marginBottom:"20px"
-       }}>
-        <Button variant="contained" color="primary"    >
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2, marginBottom: 2 }}>
+        <Button variant="contained" color="primary">
           Get Started
         </Button>
-      </div>
-    </div>
-    <Grid container spacing={4} className="{classes.cardGrid}">
-      <Grid item key={1} xs={12} sm={6} md={4}>
-        <Card className="">
-          <CardContent className="">
-            <Typography gutterBottom variant="h5" component="h2">
-              Web Development
-            </Typography>
-            <Typography>
-              Work on cutting-edge web technologies and frameworks.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item key={2} xs={12} sm={6} md={4}>
-        <Card className="">
-          <CardContent className="">
-            <Typography gutterBottom variant="h5" component="h2">
-              Data Science
-            </Typography>
-            <Typography>
-              Analyze data to extract meaningful insights and drive decision-making.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item key={3} xs={12} sm={6} md={4}>
-        <Card className="">
-          <CardContent className="">
-            <Typography gutterBottom variant="h5" component="h2">
-              Marketing
-            </Typography>
-            <Typography>
-              Develop marketing strategies to increase brand awareness.
-            </Typography>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Grid>
-  </Container>
-);
+      </Box>
+    </Container>
+  );
 };
- 
 
-export default Navbar
+export default Navbar;
