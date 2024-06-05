@@ -24,8 +24,6 @@ let user = await User.findOne({email})
 
 if(user){
  return messageHandler(res,400,"User Already EXists!")
-
-
 }
 const Hashpass = await bcrypt.hash(password, 10)
 user = await User.create({
