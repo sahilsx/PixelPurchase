@@ -4,10 +4,9 @@ import messageHandler from "../../../utils/feature";
 
 const handler = async (req, res) => {
   try {
-
     await connection();
 
-    const _id = req.params.id
+    const _id = req.params.id;
     const product = await Product.findById(_id);
 
     if (product) {

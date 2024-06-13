@@ -9,7 +9,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import DataTable from "../components/clientComponents/DataTable";
 
 const style = {
   position: "absolute",
@@ -25,132 +27,164 @@ const style = {
 
 const AdminDashboard = () => {
   const [open, setOpen] = React.useState(false);
+  const [loading , setLoading ] = React.useState(false);
+
+
+
   const [title, setTitle] = React.useState("");
   const [description, setDesciption] = React.useState("");
-  const [prize, setPrize] = React.useState("");
+  const [prize, setPrice] = React.useState("");
   const [image, setImage] = React.useState(null);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleImage = () => {};
+  const handleImage = (e) => {
+    const file = e.target.files?.[0]; // incoming selected file ....first one
+    const reader = new FileReader(); // creating an instance of file reader
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+  };
 
-  async function handleSubmit() {
-    const res = await fetch("/api/Product", {
-      method: "POST",
+  async function handleSubmit(e) {
+    try {
+      setLoading(true)
+      e.preventDefault();
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const formData = new FormData();
 
-      body: JSON.stringify({
-        title,
-        author,
-        description,
-        prize,
-        image,
-      }),
-    });
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("price", prize);
+      formData.append("image", image);
 
-    const data = res.json();
+      const res = await fetch("/api/Products/Product", {
+        method: "POST",
+        body: formData,
+      });
 
-    if (data.message === "") {
-      toast.success("");
-    } else {
-      toast.error(data.message);
+      const data = await res.json();
+
+      if (data.message === "Product saved Succesfully") {
+        toast.success("Product saved Succesfully");
+        setTitle("")
+        setDesciption("")
+        setPrice("")
+        setImage(null)
+
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Some Error , Kindly Try again");
     }
-  }
-  const TextStyle ={
-   width:"50%",
-   margin: "auto",
-  }
-  const ButStyle ={
-   display:"block",
-
-
-
+    finally{
+      setLoading(false)
+    }
   }
 
   return (
-    <Container sx={TextStyle}>
-      <Typography variant="h3" sx={ButStyle}> Admin Dashboard</Typography>
-
-      <Button variant="contained" color="primary"  onClick={handleOpen}>
-        Add Product
-      </Button>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} onSubmit={handleSubmit}>
-        <Typography variant="h5" textAlign={"center"}>
-          Add Product
-        </Typography>
-
-
-          <TextField
-            margin="normal"
-            id="filled-basic"
-            label="Title"
-            variant="filled"
-            fullWidth
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-          />
-
-          <TextField
-            margin="normal"
-            id="filled-basic"
-            label="Description"
-            variant="filled"
-            fullWidth
-            value={description}
-            onChange={(e) => {
-              setDesciption(e.target.value);
-            }}
-          />
+    <>
+      <ToastContainer />
+      <Container sx={{ marginTop: "50px" }}>
+        <Typography variant="h3">Admin Dashboard</Typography>
 
         
-          <TextField
-            margin="normal"
-            id="filled-basic"
-            label="Price"
-            variant="filled"
-            fullWidth
-            type="number"
-            value={prize}
-            onChange={(e) => {
-              setPrize(e.target.value);
-            }}
-          />
-          <TextField
-            margin="normal"
-            id="filled-basic"
-            variant="filled"
-            fullWidth
-            type="file"
-            onChange={handleImage}
-          />
-
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            fullWidth
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Add Product
-          </Button>
-        </Box>
-      </Modal>
+        <Button variant="contained" color="primary" onClick={handleOpen}>
+          Add Product 
+        </Button>
 
 
-    </Container>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography variant="h5" textAlign={"center"}>
+              Add Product
+            </Typography>
+            |
+            <form onSubmit={handleSubmit}>
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Product Title"
+                variant="filled"
+                fullWidth
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Product  Description"
+                variant="filled"
+                fullWidth
+                value={description}
+                onChange={(e) => {
+                  setDesciption(e.target.value);
+                }}
+              />
+
+             
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Product  Price"
+                variant="filled"
+                fullWidth
+                type="number"
+                value={prize}
+                onChange={(e) => {
+                  setPrice(e.target.value);
+                }}
+              />
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                variant="filled"
+                fullWidth
+                type="file"
+                name="file"
+                onChange={handleImage}
+              />
+              <img src={image} alt="no" width={100} />
+
+
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+                sx={{ mt: 3, mb: 2 }}
+                disabled={loading}
+              >
+                Add Product
+              </Button>
+
+            </form>
+          </Box>
+        </Modal>
+        
+
+
+        {/* <DataTable /> */}
+
+
+
+
+      </Container>
+    </>
   );
 };
 

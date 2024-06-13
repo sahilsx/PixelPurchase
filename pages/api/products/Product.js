@@ -1,53 +1,74 @@
 import connection from "../../../utils/condb"
 import messageHandler from "../../../utils/feature";
-import Product from "../../../models/product"
 import multer from "multer"
 import cloudinary from "../../../utils/cloud";
+import { createRouter } from "next-connect";
+import Product from "../../../models/product";
+
 
 const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
 
-const handler = async (req, res) => {
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+
+const apiRoute = createRouter({
+  onError(error, req, res) {
+    console.error(error);
+    res.status(500).json({ error: `Something went wrong! ${error.message}` });
+  },
+  onNoMatch(req, res) {
+    res.status(404).json({ error: "Not Found" }); 
+  },
+});
+
+
+apiRoute.use(upload.single("image"));
+apiRoute.post(async (req, res) => {
   try {
-    const { title, description, prize } = req.body;
-     
-    if (title === "" || description === "" || prize === "") {
-      return messageHandler(res, 400, "Missing Required Fields");
+    connection();
+
+    const { title,  description, prize, image } = req.body;
+    console.log(req.body)
+
+    if (title === "" ||   description === "" || prize === "") {
+      return messageHandler(res, 400, "All details of product Required");
     }
 
-    // Use the Multer middleware to handle file upload
-    upload.single('image')(req, res, async (err) => {
-      if (err) {
-        // Handle the error
-        console.error(err);
-        return messageHandler(res, 500, "Error uploading file");
-      }
+    if (!image) {
+      return messageHandler(res, 400, "select image");
+    }
 
-      const image = req.file.path
-
-      // Upload the image to Cloudinary
-      const uploadedImage = await cloudinary.uploader.upload(image, {
-        folder: "Ecommerce",
-      });
-      const imageUrl = uploadedImage.secure_url;
-
-      await connection();
-
-      let product = await Product.create({
-        title,
-        description,
-        prize,
-        imageUrl,
-      });
-
-      if (product) {
-        return messageHandler(res, 201, "Product created successfully!");
-      } else {
-        return messageHandler(res, 500, "INTERNAL SERVER ERROR!");
-      }
+    const uploadImg = await cloudinary.uploader.upload(image, {
+      folder: "ecommerce",
     });
+
+    if (!uploadImg) {
+      return messageHandler(res, 400, "Cloudinary Error");
+    }
+
+    const imageUrl = uploadImg.secure_url;
+
+    const product = await  Product.create({
+      title,
+      description,
+      prize,
+      imageUrl,
+    });
+
+    if (product) {
+      return messageHandler(res, 201, "Product saved Succesfully");
+    } else {
+      return messageHandler(res, 200, "Some Error!");
+    }
   } catch (error) {
     console.log(error);
+    return messageHandler(res, 500, "server Error");
   }
-}
+});
 
-export default handler;
+export default apiRoute.handler();

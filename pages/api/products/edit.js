@@ -1,6 +1,10 @@
 import Product from "../../../models/product";
 import connection from "../../../utils/condb";
 import messageHandler from "../../../utils/feature";
+const upload = multer({
+  dest: "uploads/",
+  limits: { fieldSize: 1024 * 1024 * 10 },
+});
 
 const handler = async (req, res) => {
   try {
