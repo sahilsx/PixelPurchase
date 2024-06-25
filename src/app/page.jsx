@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import * as React from "react";
 import { Container, Typography, Button, Box,Grid,Card,CardActions,CardContent, CardMedia,  } from '@mui/material';
 
 
@@ -51,58 +51,50 @@ const textStyle ={
 
 
 
-const cards = [
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Samsung S21Ultra',
-    description: 'This is a description for card 1.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Realme 11X',
-    description: 'This is a description for card 2.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Motrola 50Edge Fusion',
-    description: 'This is a description for card 3.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Samsung S21Ultra',
-    description: 'This is a description for card 1.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Realme 11X',
-    description: 'This is a description for card 2.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Motrola 50Edge Fusion',
-    description: 'This is a description for card 3.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Samsung S21Ultra',
-    description: 'This is a description for card 1.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Realme 11X',
-    description: 'This is a description for card 2.'
-  },
-  {
-    image: 'https://via.placeholder.com/140',
-    title: 'Motrola 50Edge Fusion',
-    description: 'This is a description for card 3.'
-  }
-];
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 const Home = () => {
 
+  const [data, setData] = React.useState([]);
+
+  
+    const getRows = async () => {
+      try {
+        const res = await fetch("/api/Products/getall", {
+          method: "GET",
+        });
+        const data = await res.json();
+       const product = data.product
+         setData(product)
+  
+        console.log(product)
+        
+   
+  
+      } catch (error) {
+        console.log(error);
+        toast.error("server Error");
+      }
+    };
+  
+    React.useEffect(() => {
+      getRows();
+    }, []);
+  
   const CardComponent = ({ image, title, description }) => {
     return (
       <Card sx={{ maxWidth: 345, margin: 2 }}>
@@ -174,12 +166,12 @@ At PixelPurchase, we believe in the power of simplicity and convenience.
 
      <Container sx={{ py: 5 }}>
       <Grid container spacing={4}>
-        {cards.map((card, index) => (
+        {data.map((products, index) => (
           <Grid item key={index} xs={12} sm={6} md={4}>
             <CardComponent 
-              image={card.image} 
-              title={card.title} 
-              description={card.description} 
+              image={products.imageUrl} 
+              title={products.title} 
+              description={products.description} 
             />
           </Grid>
         ))}

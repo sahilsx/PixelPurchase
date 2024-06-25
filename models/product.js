@@ -7,7 +7,7 @@ mongoose.model("Product",{
 title : String,
 description : String,
 prize: Number,
- imageUrl: String,
+imageUrl: String,
  
 
 

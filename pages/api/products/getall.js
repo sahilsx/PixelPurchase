@@ -7,7 +7,7 @@ const handler = async (req, res) => {
     await connection();
     const product = await Product.find();
 
-    if (books) {
+    if (product) {
       res.status(200).json({ message: "Products fetched Succesfully", product });
     } else {
       messageHandler(res, 400, "Some Error");
