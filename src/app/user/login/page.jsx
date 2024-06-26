@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { toast, ToastContainer } from "react-toastify";
 import { Button } from "@mui/material";
-
+import { useRouter } from 'next/navigation';
 
 // export default function SignIn() {
 //   const handleSubmit = async (event) => {
@@ -53,11 +53,11 @@ import { Button } from "@mui/material";
 //     }
 //   };
 export default function signIn(){
-
+  const app = useRouter();
   const handleSubmit= async (e)=>{
   try{
     e.preventDefault();
-
+   
     const data = new FormData(e.currentTarget)
     const email =data.get("email")
     const password =data.get("password")
@@ -78,8 +78,13 @@ export default function signIn(){
 
 
   const response = await res.json()
+  const token = response.token
+  console.log(token)
   if (response.message === "Logged in succesfully") {
+     sessionStorage.setItem("token", token);
             toast.success("Logged in succesfully");
+            app.push("/");
+
           } else {
             toast.error(response.message);
           }

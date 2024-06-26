@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Container, Typography, Button, Box,Grid,Card,CardActions,CardContent, CardMedia,  } from '@mui/material';
 
-
+import { useRouter } from 'next/navigation';
 
 const logoContainerStyle = {
   display: 'flex',
@@ -57,6 +57,12 @@ const textStyle ={
 
 
 
+ 
+ 
+
+ 
+
+   
 
 
 
@@ -65,10 +71,16 @@ const textStyle ={
 
 
 
+const Home =  () => {
+ const app =useRouter();
+  const token = sessionStorage.getItem("token");
+ React.useEffect(() => {
 
-
-const Home = () => {
-
+    if (!token) {
+      app.push("/user/login")
+    }
+  }, [token ]);
+  console.log("token",token)
   const [data, setData] = React.useState([]);
 
   
