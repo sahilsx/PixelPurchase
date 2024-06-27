@@ -3,6 +3,7 @@ import * as React from "react";
 import { Container, Typography, Button, Box,Grid,Card,CardActions,CardContent, CardMedia,  } from '@mui/material';
 
 import { useRouter } from 'next/navigation';
+import IsAuthenticated from "./user/Auth/page";
 
 const logoContainerStyle = {
   display: 'flex',
@@ -72,15 +73,18 @@ const textStyle ={
 
 
 const Home =  () => {
- const app =useRouter();
-  const token = sessionStorage.getItem("token");
- React.useEffect(() => {
+  
+//  const app =useRouter();
+//   const token = sessionStorage.getItem("token");
+//  React.useEffect(() => {
 
-    if (!token) {
-      app.push("/user/login")
-    }
-  }, [token ]);
-  console.log("token",token)
+//     if (!token) {
+//       app.push("/user/login")
+//     }
+//   }, [token ]);
+//   console.log("token",token)
+      
+
   const [data, setData] = React.useState([]);
 
   
@@ -139,6 +143,8 @@ const Home =  () => {
 
   return (
     <>
+    
+    <IsAuthenticated/>
     <Container maxWidth="md" sx={{}}>
       <Box sx={logoContainerStyle}>
         <Box sx={logoCircleStyle}>
