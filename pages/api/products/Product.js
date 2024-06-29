@@ -50,15 +50,16 @@ apiRoute.post(async (req, res) => {
     if (!uploadImg) {
       return messageHandler(res, 400, "Cloudinary Error");
     }
-
+    
     const imageUrl = uploadImg.secure_url;
-
+    console.log("price",prize)
     const product = await  Product.create({
       title,
       description,
       prize,
       imageUrl,
     });
+    console.log(product)
 
     if (product) {
       return messageHandler(res, 201, "Product saved Succesfully");

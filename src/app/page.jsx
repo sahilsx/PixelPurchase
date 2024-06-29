@@ -111,7 +111,7 @@ const Home =  () => {
       getRows();
     }, []);
   
-  const CardComponent = ({ image, title, description }) => {
+  const CardComponent = ({ image,price, title, description }) => {
     return (
       <Card sx={{ maxWidth: 345, margin: 2 }}>
         <CardMedia
@@ -124,8 +124,12 @@ const Home =  () => {
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
+          
           <Typography variant="body2" color="text.secondary">
             {description}
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            {price}
           </Typography>
         </CardContent>
         <CardActions>
@@ -138,7 +142,7 @@ const Home =  () => {
 
 
 
-
+;
 
 
   return (
@@ -190,6 +194,7 @@ At PixelPurchase, we believe in the power of simplicity and convenience.
               image={products.imageUrl} 
               title={products.title} 
               description={products.description} 
+              price={products.prize}
             />
           </Grid>
         ))}

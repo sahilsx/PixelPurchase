@@ -59,16 +59,16 @@ const AdminDashboard = () => {
 
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("price", prize);
+      formData.append("prize", prize);
       formData.append("image", image);
-
+        console.log("formData",formData)
       const res = await fetch("/api/Products/Product", {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
-
+        
       if (data.message === "Product saved Succesfully") {
         toast.success("Product saved Succesfully");
         setTitle("")
@@ -143,7 +143,6 @@ const AdminDashboard = () => {
                 label="Product  Price"
                 variant="filled"
                 fullWidth
-                type="number"
                 value={prize}
                 onChange={(e) => {
                   setPrice(e.target.value);
