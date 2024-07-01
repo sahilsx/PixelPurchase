@@ -174,7 +174,7 @@ export default function Navbar() {
 
   return (
     <>
-    <IsAuthenticated/>
+    {/* <IsAuthenticated/> */}
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>

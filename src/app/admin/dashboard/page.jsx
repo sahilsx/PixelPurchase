@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import IsaAuthenticated from "../aAuth/aAuth";
 // import DataTable from "../components/clientComponents/DataTable";
 
 const style = {
@@ -90,6 +91,7 @@ const AdminDashboard = () => {
 
   return (
     <>
+    <IsaAuthenticated/>
       <ToastContainer />
       <Container sx={{ marginTop: "50px" }}>
         <Typography variant="h3">Admin Dashboard</Typography>
