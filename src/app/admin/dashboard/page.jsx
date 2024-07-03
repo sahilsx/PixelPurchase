@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import IsaAuthenticated from "../aAuth/aAuth";
-// import DataTable from "../components/clientComponents/DataTable";
+import DataTable from "../Table/table";
 
 const style = {
   position: "absolute",
@@ -34,7 +33,7 @@ const AdminDashboard = () => {
 
   const [title, setTitle] = React.useState("");
   const [description, setDesciption] = React.useState("");
-  const [prize, setPrice] = React.useState("");
+  const [prize, setPrice] = React.useState();
   const [image, setImage] = React.useState(null);
 
   const handleOpen = () => setOpen(true);
@@ -60,16 +59,17 @@ const AdminDashboard = () => {
 
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("prize", prize);
+      formData.append("price", prize);
       formData.append("image", image);
-        console.log("formData",formData)
+
       const res = await fetch("/api/Products/Product", {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
-        
+         console.log("data",data)
+         
       if (data.message === "Product saved Succesfully") {
         toast.success("Product saved Succesfully");
         setTitle("")
@@ -91,7 +91,6 @@ const AdminDashboard = () => {
 
   return (
     <>
-    <IsaAuthenticated/>
       <ToastContainer />
       <Container sx={{ marginTop: "50px" }}>
         <Typography variant="h3">Admin Dashboard</Typography>
@@ -145,9 +144,10 @@ const AdminDashboard = () => {
                 label="Product  Price"
                 variant="filled"
                 fullWidth
+                type="number"
                 value={prize}
                 onChange={(e) => {
-                  setPrice(e.target.value);
+                  setPrice(parseInt(e.target.value, 10));
                 }}
               />
               <TextField
@@ -179,12 +179,13 @@ const AdminDashboard = () => {
         
 
 
-        {/* <DataTable /> */}
+        <DataTable />
 
 
 
 
       </Container>
+      
     </>
   );
 };

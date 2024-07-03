@@ -79,12 +79,12 @@ export default function signIn1(){
 
   const response = await res.json()
   const token = response.token
-  await sessionStorage.setItem("token", token);
-  localStorage.setItem("token", token);
-  console.log("admin",token)
+ 
+  // console.log("admin",token)
   app.push("/admin/dashboard");
-  if (response.message === "Logged in succesfully") {
-    
+  if (response.message === "Logged in successfully") {
+    await sessionStorage.setItem("token", token);
+    localStorage.setItem("token", token);
            
             toast.success("admin logged in");
             
