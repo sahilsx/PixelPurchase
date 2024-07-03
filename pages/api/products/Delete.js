@@ -5,6 +5,7 @@ import messageHandler from "../../../utils/feature";
 const handler = async (req, res) => {
   try {
     const _id = req.params.id;
+    console.log(_id);
 
     await connection();
 
