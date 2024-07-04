@@ -92,7 +92,7 @@ const AdminDashboard = () => {
   return (
     <>
       <ToastContainer />
-      <Container sx={{ marginTop: "50px" }}>
+      <Container sx={{ marginTop: "50px" , marginBottom: "50px"}}>
         <Typography variant="h3">Admin Dashboard</Typography>
 
         
@@ -179,13 +179,13 @@ const AdminDashboard = () => {
         
 
 
-        <DataTable />
+       
 
 
 
 
       </Container>
-      
+      <DataTable />
     </>
   );
 };
