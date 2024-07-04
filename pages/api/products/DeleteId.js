@@ -4,12 +4,12 @@ import messageHandler from "../../../utils/feature";
 
 const handler = async (req, res) => {
   try {
-    const _id = req.params.id;
-    console.log(_id);
+    const {id} = req.body;
+    console.log(id);
 
     await connection();
 
-    const remove = await Product.findByIdAndDelete(_id);
+    const remove = await Product.findByIdAndDelete(id);
 
     if (!remove) {
       return messageHandler(res, 500, "Internal Server error");

@@ -180,13 +180,17 @@ export default function CustomPaginationActionsTable() {
   //   setPage(0);
   // };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id ) => {
     try {
-      const res = await fetch(`/api/Products/Delete/${id}`, {
-        method: "DELETE",
+      const res = await fetch('/api/Products/DeleteId', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: id }),
       });
       if (res.message === "Product Removed Successfully!") {
-        // If deletion is successful, update state to reflect the deleted item
+      
         setRows(rows.filter(row => row._id !== id));
         console.log(`Deleted item with ID: ${id}`);
       } else {
