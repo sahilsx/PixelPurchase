@@ -149,13 +149,13 @@ export default function CustomPaginationActionsTable() {
         body: JSON.stringify({ id: selectedProduct }),
         
       });
-      const response = await res.json()
+      const result = await res.json()
      
-      if (response.message === "Product Removed Successfully!") {
-       
-        setRows(rows.filter((row) => row._id !== id));
+       if (res.ok){
         setDeleteDialogOpen(false);
-        toast.success(`Deleted item with ID: ${id}`);
+        setRows(rows.filter((row) => row._id !== selectedProduct));
+        setDeleteDialogOpen(false);
+        toast.success("item Deleted Successfully");
         app.push("/admin/dashboard");
       } else {
         throw new Error("Failed to delete item");
