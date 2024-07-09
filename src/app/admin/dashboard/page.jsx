@@ -59,7 +59,7 @@ const AdminDashboard = () => {
 
       formData.append("title", title);
       formData.append("description", description);
-      formData.append("price", prize);
+      formData.append("prize", prize);
       formData.append("image", image);
 
       const res = await fetch("/api/Products/Product", {

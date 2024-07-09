@@ -26,6 +26,7 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import LastPageIcon from "@mui/icons-material/LastPage";
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from 'next/navigation';
@@ -102,6 +103,8 @@ export default function CustomPaginationActionsTable() {
   const [selectedProduct, setSelectedProduct] = React.useState(null);
   const [deleteDialogOpen, setDeleteDialogOpen] = React.useState(false);
   const [rows, setRows] = React.useState([]);
+  const [formData, setFormData] =React.useState([]);
+  const [editDialogOpen, setEditDialogOpen] = React.useState(false);
   const [totalCount, setTotalCount] = React.useState(0);
   const app = useRouter();
   // const emptyRows =
@@ -133,11 +136,53 @@ export default function CustomPaginationActionsTable() {
   //   setRowsPerPage(parseInt(event.target.value, 10));
   //   setPage(0);
   // };
+
+
+  const handleEdit = (row) => {
+    setSelectedProduct(row);
+    setFormData(row);
+    setEditDialogOpen(true);
+  };
+
+
+  const handleEditSubmit = async () => {
+    try {
+      const response = await fetch('/api/Products/edit', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await response.json();
+      if (response.ok) {
+        // setCabFares((prevFares) =>
+        //   prevFares.map((fare) => (fare._id === formData._id ? formData : fare))
+        // );
+        setEditDialogOpen(false);
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error('Error updating trip:', error);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
   const setdelete = (row) => {
     setSelectedProduct(row);
     console.log("set", setSelectedProduct);
     setDeleteDialogOpen(true);
   };
+
 
   const handleDelete = async () => {
     try {
@@ -165,6 +210,15 @@ export default function CustomPaginationActionsTable() {
     }
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+
+
+
+
   return (
     <>
       <ToastContainer />
@@ -183,6 +237,9 @@ export default function CustomPaginationActionsTable() {
                   {row.description}
                 </TableCell>
                 <TableCell align="right">
+                <IconButton color="primary" onClick={() => handleEdit(row)}>
+                    <EditIcon />
+                  </IconButton>
                   <IconButton
                     color="secondary"
                     onClick={() => setdelete(row._id)}
@@ -205,6 +262,73 @@ export default function CustomPaginationActionsTable() {
           </TableFooter>
         </Table>
       </TableContainer>
+
+
+
+
+
+
+
+
+      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+        <DialogTitle>Edit Trip</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Edit the details of the trip below.</DialogContentText>
+          <TextField
+            margin="dense"
+            label="title"
+            type="text"
+            name="title"
+            fullWidth
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="description"
+            type="text"
+            name="description"
+            fullWidth
+            value={formData.description}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            label="prize"
+            type="text"
+            name="prize"
+            fullWidth
+            value={formData.prize}
+            onChange={handleChange}
+          />
+
+         
+         
+         
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleEditSubmit} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <Dialog
         open={deleteDialogOpen}
