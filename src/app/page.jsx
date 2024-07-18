@@ -133,7 +133,7 @@ const Home =  () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">ADD</Button>
+          <Button size="large">Buy</Button>
           <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
