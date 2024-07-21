@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 
-const Ship = mongoose.Model.Ship||
+const Ship =  mongoose.models.Ship ||
 mongoose.model("Ship",{
 Name:String,
 Email:String,

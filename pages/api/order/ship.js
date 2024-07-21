@@ -6,9 +6,12 @@ const handler = async (req, res) => {
   try {
     await connection();
     const {Name,Email,Address,Mobile,Product,Price } = req.body;
-   
+    console.log("body",req.body)
+    if (Name === "" ||   Email === "" ||Address=== "" ||Mobile=== ""  ||Product=== ""  ||Price=== "") {
+      return messageHandler(res, 400, "All details of product Required");
+    }
 
-    const Order = await Ship.Create({
+    const Order = await Ship.create({
       Name,
       Email,
       Address,

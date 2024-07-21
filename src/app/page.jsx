@@ -16,6 +16,7 @@ import {
 
 import { useRouter } from "next/navigation";
 import IsAuthenticated from "./user/Auth/page";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 const logoContainerStyle = {
   display: "flex",
@@ -73,6 +74,20 @@ const Home = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState([]);
   const [loading , setLoading ] = React.useState(false);
+
+
+
+
+
+
+
+
+  const [Name, setName] = React.useState("");
+  const [Email, setEmail] = React.useState("");
+  const [Price, setPrice] = React.useState(0);
+  const [Address, setaddress] = React.useState("");
+  const [Mobile, setmobile] = React.useState(0);
+  const [Product, setProduct] = React.useState("");
   //  const app =useRouter();
   //   const token = sessionStorage.getItem("token");
   //  React.useEffect(() => {
@@ -109,24 +124,39 @@ const handleClose = () => setOpen(false);
 const Handleship= async(products)=>{
  setOpen(true)
  setSelectedProduct(products)
- 
-
+ setProduct(selectedProduct.title)
+ setPrice(selectedProduct.prize)
 
 }
 async function handleShipSubmit(e) {
   try {
+
     e.preventDefault();
+    // const formData = new FormData();
+    // formData.append("Name", Name);
+    // formData.append("Email", Email);
+    // formData.append("Mobile", Mobile);
+    // formData.append("Address", Address);
+    // formData.append("Product", Product);
+    // formData.append("Price", Price);
+
+
+
+
+
+
+    
     const response = await fetch('/api/order/ship', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(selectedProduct),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+    body: JSON.stringify(Name,{"Email":Email},Mobile,Address,Product,Price),
     });
     const result = await response.json();
     console.log("result",result)
     if (response.ok) {
-     
+      console.log("shipment successfull!")
     } else {
       console.error(result.message);
     }
@@ -244,7 +274,9 @@ const handleChange = (e) => {
                 variant="filled"
                 name="Name"
                 fullWidth
-                onChange={handleChange}
+                value={Name}
+                onChange={(e) => {
+                  setName(e.target.value);}}
            
                
               />
@@ -255,8 +287,10 @@ const handleChange = (e) => {
                 label="Email"
                 variant="filled"
                 name="Email"
+                value={Email}
                 fullWidth
-                onChange={handleChange}
+                onChange={(e) => {
+                  setEmail(e.target.value);}}
               />
 
 
@@ -267,7 +301,9 @@ const handleChange = (e) => {
                 name="Address"
                 variant="filled"
                 fullWidth
-                onChange={handleChange}
+                value={Address}
+                onChange={(e) => {
+                  setaddress(e.target.value);}}
               />
 
 
@@ -285,7 +321,9 @@ const handleChange = (e) => {
                 type="number"
                 variant="filled"
                 fullWidth
-                onChange={handleChange}
+                value={Mobile}
+                onChange={(e) => {
+                  setmobile(parseInt(e.target.value, 10));;}}
               />
              
 
@@ -297,8 +335,8 @@ const handleChange = (e) => {
                 variant="filled"
                 name="Product"
                 fullWidth
-                value={selectedProduct.title}
-                onChange={handleChange}
+                value={Product}
+
               />
              
               <TextField
@@ -309,8 +347,8 @@ const handleChange = (e) => {
                 variant="filled"
                 fullWidth
                 type="number"
-                value={selectedProduct.prize}
-                onChange={handleChange}
+                value={Price}
+               
               />
              
             
