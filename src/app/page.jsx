@@ -13,7 +13,7 @@ import {
   CardContent,
   CardMedia,
 } from "@mui/material";
-
+import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import IsAuthenticated from "./user/Auth/page";
 import { ConstructionOutlined } from "@mui/icons-material";
@@ -148,15 +148,32 @@ async function handleShipSubmit(e) {
     
     const response = await fetch('/api/order/ship', {
       method: 'POST',
+      // body:(formData),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-    body: JSON.stringify(Name,{"Email":Email},Mobile,Address,Product,Price),
+    body: JSON.stringify({"Name":Name,"Email":Email,"Mobile":Mobile,"Address":Address,"Product":Product,"Price":Price}
+
+
+
+
+
+
+
+
+    ),
     });
     const result = await response.json();
-    console.log("result",result)
-    if (response.ok) {
-      console.log("shipment successfull!")
+   
+    if (result .message === "Order Confirmed Succesfully!") {
+      toast.success("Order Confirmed Succesfully!");
+      setName("")
+      setEmail("")
+      setPrice("")
+      setProduct("")
+      setmobile("")
+      setaddress("")
+
     } else {
       console.error(result.message);
     }
@@ -197,6 +214,7 @@ const handleChange = (e) => {
 
   return (
     <>
+      
       <IsAuthenticated />
       <Container maxWidth="md" sx={{}}>
         <Box sx={logoContainerStyle}>
@@ -253,7 +271,7 @@ const handleChange = (e) => {
 
 
 
-
+      <ToastContainer />
 
       <Modal
           open={open}
