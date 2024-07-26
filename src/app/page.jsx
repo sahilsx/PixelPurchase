@@ -379,7 +379,7 @@ const handleChange = (e) => {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={loading}
               >
-                Buy Product
+                Pay for Order
               </Button>
 
             </form>
