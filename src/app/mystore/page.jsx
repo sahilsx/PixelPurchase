@@ -15,46 +15,9 @@ import {
 } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
-import IsAuthenticated from "./user/Auth/page";
-import { ConstructionOutlined, FontDownloadOffRounded } from "@mui/icons-material";
+import IsAuthenticated from "../user/Auth/page";
+import { ConstructionOutlined } from "@mui/icons-material";
 
-const logoContainerStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  marginBottom: 3,
-  marginTop: 1,
-};
-const logoCircleStyle = {
-  marginTop: 5,
-  width: 45,
-  height: 45,
-  borderRadius: "50%",
-  backgroundColor: "purple",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  color: "#fff",
-  marginRight: 0.5,
-};
-
-const logoTextStyle = {
-  marginTop: 5,
-  fontWeight: "bold",
-  fontSize: "1.5rem",
-  Color: "black",
-};
-const logoTextStyle2 = {
- fontSize:"17px",
-fontWeight:"300"
- 
-};
-const lineStyle = {
-  width: "100%",
-  height: "2px",
-  marginTop: 6,
-  backgroundColor: " black",
-};
 
 const textStyle = {
   display: "flex",
@@ -62,6 +25,7 @@ const textStyle = {
   alignItems: "center",
   marginTop: 6,
   fontWeight: "bolder",
+  fontSize:"30px"
 };
 const style = {
   position: "absolute",
@@ -74,13 +38,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const stylee = {
-  backgroundColor:"pink",
-  height:"300px",
-  width:"70%"
-};
 
-const Home = () => {
+const Store = () => {
   const [open, setOpen] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState([]);
   const [loading , setLoading ] = React.useState(false);
@@ -226,38 +185,12 @@ const handleChange = (e) => {
     <>
       
       <IsAuthenticated />
-      <Container  sx={stylee}>
-        <Box sx={logoContainerStyle}>
-          <Box sx={logoCircleStyle}>
-            <Typography variant="h5">PP</Typography>
-          </Box>
-          <Typography sx={logoTextStyle}>PixelPurchase</Typography>
-        </Box>
-        <Typography sx={logoTextStyle2}  align="center"  paragraph>
-          Welcome to PixelPurchase! At PixelPurchase, we believe in the power of
-          simplicity and convenience. Founded in 2024, our mission has always
-          been to bring high-quality products directly to your doorstep with
-          just a few clicks. We are passionate about making your shopping
-          experience enjoyable, seamless, and rewarding.
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: 5,
-            marginBottom: 5,
-          }}
-        >
-          <Button href="/mystore" variant="contained" color="primary">
-            Get Started
-          </Button>
-        </Box>
-      </Container>
+      
 
-      <Box sx={lineStyle}></Box>
+      
 
       <Box sx={textStyle}>
-        <Typography variant="h5" align="center" color="black">
+        <Typography variant="h4" align="center" color="black">
           Explore a variety of Products that suit your choice !
         </Typography>
       </Box>
@@ -415,4 +348,4 @@ const handleChange = (e) => {
   );
 };
 
-export default Home;
+export default Store;
