@@ -99,31 +99,70 @@ const logoContainerStyle = {
 export default function myaccount(){
     const [id, setid] = React.useState("");
     const [data, setdata] = React.useState("");
-    
+
+
     const fetchuser = async () => {
         const user = sessionStorage.getItem("user");
-  setid(user)
-  console.log("myuser",user) 
+        setid(user);
+        console.log("myuser", user);
+      
         try {
-          const res = await fetch("/api/user/myaccount", {
+          // Build the query string with the user ID
+          const queryString = new URLSearchParams({ id: user }).toString();
+          const url = `/api/user/myaccount?${queryString}`;
+      
+          const res = await fetch(url, {
             method: "GET",
-            // headers: {
-            //   "Content-Type": "application/json",
-            // },
-            // body: JSON.stringify({ id: id }),
-            
+            headers: {
+              "Content-Type": "application/json",
+            },
           });
+      
+          if (!res.ok) {
+            throw new Error(`HTTP error! Status: ${res.status}`);
+          }
+      
           const sdata = await res.json();
-          setdata(sdata)
-          console.log("data",sdata)
+          const datx=sdata.user
+          setdata(datx);
+          console.log("data", datx);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       };
-    
+      
       React.useEffect(() => {
         fetchuser();
       }, []);
+
+
+
+    
+    
+//     const fetchuser = async () => {
+//         const user = sessionStorage.getItem("user");
+//   setid(user)
+//   console.log("myuser",user) 
+//         try {
+//           const res = await fetch("/api/user/myaccount", {
+//             method: "GET",
+//             headers: {
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({ id: id }),
+            
+//           });
+//           const sdata = await res.json();
+//           setdata(sdata)
+//           console.log("data",sdata)
+//         } catch (error) {
+//           console.error("Error fetching data:", error);
+//         }
+//       };
+    
+//       React.useEffect(() => {
+//         fetchuser();
+//       }, []);
   return (
     <>
 

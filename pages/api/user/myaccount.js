@@ -12,9 +12,9 @@ const handler = async (req, res) => {
   try {
     await connection();
 
-    // const {id} = req.body; 
-    // console.log("myid",id);
-    const user = await User.find();
+    const { id } = req.query; 
+    console.log("myid",id);
+    const user = await User.findById(id);
 
     if (user) {
       res.status(200).json({ message: "user fetched Succesfully", user });
