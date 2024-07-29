@@ -79,9 +79,12 @@ export default function signIn(){
 
   const response = await res.json()
   const token = response.token
+  const user = response.user._id
+  console.log("user",user)
   console.log(token)
   if (response.message === "Logged in succesfully") {
      sessionStorage.setItem("token", token);
+     sessionStorage.setItem("user", user);
             toast.success("Logged in succesfully");
             app.push("/");
 

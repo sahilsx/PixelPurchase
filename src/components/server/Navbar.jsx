@@ -116,7 +116,7 @@ export default function Navbar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem  onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
 
@@ -157,8 +157,9 @@ export default function Navbar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem  onClick={handleProfileMenuOpen}>
         <IconButton
+          
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -218,6 +219,7 @@ export default function Navbar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              href='/user/myaccount'
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
@@ -237,6 +239,7 @@ export default function Navbar() {
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
+              
               size="large"
               aria-label="show more"
               aria-controls={mobileMenuId}
