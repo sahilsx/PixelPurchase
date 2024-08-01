@@ -83,7 +83,7 @@ export default function signIn1(){
   // console.log("admin",token)
   app.push("/admin/dashboard");
   if (response.message === "Logged in successfully") {
-    await sessionStorage.setItem("token", token);
+     sessionStorage.setItem("token", token);
     localStorage.setItem("token", token);
            
             toast.success("admin logged in");

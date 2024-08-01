@@ -21,7 +21,7 @@ const handler = async (req, res) => {
     });
 
     if (Order) {
-      messageHandler(res, 200, "Order Confirmed Succesfully!");
+      messageHandler(res, 200, "Order Confirmed Successfully!");
     } else {
       messageHandler(res, 400, "Some Error");
     }

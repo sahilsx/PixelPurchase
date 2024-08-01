@@ -19,7 +19,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import IsAuthenticated from '@/app/user/Auth/page';
-
+import { useRouter } from 'next/navigation';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -77,7 +77,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState(null);
-
+    const app = useRouter();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -92,7 +92,15 @@ export default function Navbar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+   
+    
+    
   };
+  const handleOpen=()=>{
+
+  app.push("/user/myaccount")
+
+  }
 
   const handleMobileMenuOpen = (e) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -115,8 +123,8 @@ export default function Navbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem  onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleOpen}>My account</MenuItem>
+      <MenuItem >My Orders</MenuItem>
     </Menu>
   );
 
@@ -159,7 +167,7 @@ export default function Navbar() {
       </MenuItem>
       <MenuItem  onClick={handleProfileMenuOpen}>
         <IconButton
-          
+         
           size="large"
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -219,7 +227,7 @@ export default function Navbar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
-              href='/user/myaccount'
+             
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
