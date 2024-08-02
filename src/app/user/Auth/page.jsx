@@ -2,14 +2,14 @@ import React from 'react'
 import { useRouter } from 'next/navigation';
 const IsAuthenticated = () => {
     const app =useRouter();
-    const token = sessionStorage.getItem("token");
+    const user = sessionStorage.getItem("user");
     React.useEffect(() => {
    
-       if (!token) {
+       if (!user) {
          app.push("/user/login")
        }
-     }, [token ]);
-     console.log("token",token)
+     }, [user ]);
+     console.log("user",user)
   return (
     <div></div>
   )
