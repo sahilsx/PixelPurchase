@@ -6,7 +6,9 @@ import connection from "../../../utils/condb";
 const handler = async(req,res)=>{
     try {
 await connection();
-const myorder = await ship.findOne(Userid)
+const { Userid } = req.query; 
+    console.log("myid",Userid);
+const myorder = await ship.find({Userid});
 if(myorder){
 
     res.status(200).json({message:"Orders Fetched Successfully",myorder})
