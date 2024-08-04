@@ -837,11 +837,13 @@ const Home = () => {
   const [Address, setAddress] = React.useState("");
   const [Mobile, setMobile] = React.useState("");
   const [Product, setProduct] = React.useState("");
+  const [Userid, setUserid] = React.useState("");
 
   const [data, setData] = React.useState([]);
-
+ 
   const getRows = async () => {
     try {
+
       const res = await fetch("/api/Products/getall", {
         method: "GET",
       });
@@ -866,6 +868,11 @@ const Home = () => {
   };
 
   const handleShipSubmit = async (e) => {
+    const user= await sessionStorage.getItem("user");
+    if(user){
+      setUserid(user)
+  
+    }
     e.preventDefault();
     setLoading(true);
     try {
@@ -874,7 +881,7 @@ const Home = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ Name, Email, Mobile, Address, Product, Price }),
+        body: JSON.stringify({ Userid,Name, Email, Mobile, Address, Product, Price }),
       });
       const result = await response.json();
       if (result.message === "Order Confirmed Successfully!") {

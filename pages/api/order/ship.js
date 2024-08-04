@@ -5,13 +5,14 @@ import Ship from "../../../models/ship";
 const handler = async (req, res) => {
   try {
     await connection();
-    const {Name, Email, Address, Mobile, Product, Price } =req.body;
+    const {Userid,Name, Email, Address, Mobile, Product, Price } =req.body;
     console.log("body",req.body)
-    if (Name =="" ||   Email =="" ||Address =="" ||Mobile ==""  ||Product == ""  ||Price == "") {
+    if (Userid =="" || Name =="" ||   Email =="" ||Address =="" ||Mobile ==""  ||Product == ""  ||Price == "") {
       return messageHandler(res, 400, "All details of Shipment Required");
     }
-
-    const Order = await Ship.create({
+console.log("userid",Userid);
+    const Order =  await Ship.create({
+      Userid,
       Name,
       Email,
       Address,
@@ -19,6 +20,7 @@ const handler = async (req, res) => {
       Product,
       Price
     });
+    console.log("order",Order)
 
     if (Order) {
       messageHandler(res, 200, "Order Confirmed Successfully!");

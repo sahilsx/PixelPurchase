@@ -6,7 +6,7 @@ import Navbar from "@/components/server/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "BICANNO",
+  title: "PP",
   description: "CREATED BY SAHIL ALTAF",
 };
 

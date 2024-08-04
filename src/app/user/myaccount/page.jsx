@@ -87,7 +87,7 @@ export default function MyAccount() {
       if (response.ok) {
         setUser(result.user)
         setEditDialogOpen(false);
-        app.push("/user/myaccount");
+        
       } else {
         console.error(result.message);
       }
