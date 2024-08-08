@@ -739,7 +739,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import IsAuthenticated from "./user/Auth/page";
 import { motion } from "framer-motion";
-
+import Main from "../app/main/main"
 const logoContainerStyle = {
   display: "flex",
   alignItems: "center",
@@ -906,6 +906,7 @@ const Home = () => {
   return (
     <>
       <IsAuthenticated />
+      <ToastContainer />
       <Container sx={containerStyle}>
         <Box sx={logoContainerStyle}>
           <Box sx={logoCircleStyle}>
@@ -926,20 +927,7 @@ const Home = () => {
             Browse our latest products tailored for your needs!
           </Typography>
         </Box>
-        <Grid container spacing={4} sx={{ py: 5 }}>
-          {data.map((product, index) => (
-            <Grid item key={index} xs={12} sm={6} md={4}>
-              <CardComponent
-                image={product.imageUrl}
-                title={product.title}
-                description={product.description}
-                price={product.prize}
-                products={product}
-                onBuy={handleBuy}
-              />
-            </Grid>
-          ))}
-        </Grid>
+        
       </Container>
       <Modal open={open} onClose={handleClose}>
         <Box sx={modalStyle}>
@@ -1014,9 +1002,24 @@ const Home = () => {
           </form>
         </Box>
       </Modal>
-      <ToastContainer />
+      
+     <Main/>
     </>
   );
 };
 
 export default Home;
+{/* <Grid container spacing={4} sx={{ py: 5 }}>
+          {data.map((product, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4}>
+              <CardComponent
+                image={product.imageUrl}
+                title={product.title}
+                description={product.description}
+                price={product.prize}
+                products={product}
+                onBuy={handleBuy}
+              />
+            </Grid>
+          ))}
+        </Grid> */}
