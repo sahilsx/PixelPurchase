@@ -220,6 +220,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 10000
             </Typography>
             <Button
+              href="/categories/below10"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
@@ -245,6 +246,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 20000
             </Typography>
             <Button
+            href="/categories/below20"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
@@ -271,6 +273,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 30000
             </Typography>
             <Button
+               href="/categories/below30"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
@@ -297,6 +300,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 40000
             </Typography>
             <Button
+               href="/categories/below40"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
@@ -322,6 +326,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 50000
             </Typography>
             <Button
+             href="/categories/below50"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
@@ -347,6 +352,7 @@ const [open, setOpen] = React.useState(false);
               Mobile phones under 60000
             </Typography>
             <Button
+             href="/categories/below60"
               variant="contained"
               color="primary"
               style={{ marginTop: 16, borderRadius: 4 }}
