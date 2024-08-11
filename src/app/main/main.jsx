@@ -378,10 +378,10 @@ const [open, setOpen] = React.useState(false);
                 <ProductImage
                   component="img"
                   image={offer.imageUrl}
-                  alt={offer.name}
+                  alt={offer.title}
                 />
                 <CardContent style={{ textAlign: 'center' }}>
-                  <Typography variant="h5">{offer.name}</Typography>
+                  <Typography variant="h5">{offer.title}</Typography>
                   <Typography variant="body2" color="textSecondary">
                     {offer.description}
                   </Typography>
