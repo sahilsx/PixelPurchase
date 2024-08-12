@@ -382,7 +382,8 @@ import {
   Grid,
   Paper,
 } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 
 export default function Myorder() {
@@ -419,7 +420,7 @@ export default function Myorder() {
       if (res.ok) {
         setDeleteDialogOpen(false);
         setUser(user.filter((item) => item._id !== cancelId));
-        toast.success("Order cancelled successfully");
+        toast("Order cancelled successfully");
       } else {
         throw new Error("Failed to cancel order");
       }
@@ -432,6 +433,7 @@ export default function Myorder() {
 
   return (
     <>
+    <ToastContainer />
       <Typography variant="h4" align="center" marginTop={5} marginBottom={3}>
         My Orders
       </Typography>
@@ -490,7 +492,7 @@ export default function Myorder() {
         </DialogActions>
       </Dialog>
 
-      <ToastContainer />
+      
     </>
   );
 }

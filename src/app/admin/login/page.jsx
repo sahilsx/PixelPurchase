@@ -12,7 +12,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 import { Button } from "@mui/material";
 import { useRouter } from 'next/navigation';
 
@@ -81,15 +82,15 @@ export default function signIn1(){
   const token = response.token
  
   // console.log("admin",token)
-  app.push("/admin/dashboard");
+  
   if (response.message === "Logged in successfully") {
      sessionStorage.setItem("token", token);
     localStorage.setItem("token", token);
-           
-            toast.success("admin logged in");
+    app.push("/admin/dashboard");
+            toast("admin logged in Succesfully");
             
 
-          } else {
+    } else {
             toast.error(response.message);
           }
   }catch(error){

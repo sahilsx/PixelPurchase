@@ -19,9 +19,11 @@ import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { useRouter } from 'next/navigation';
-import { toast } from "react-toastify";
+
 import Modal from "@mui/material/Modal";
 import { styled } from "@mui/material/styles";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   position: 'absolute',
@@ -101,7 +103,7 @@ export default function MyAccount() {
     setOpen(false);
     sessionStorage.removeItem("user");
     app.push("/user/login"); // Adjust the route as needed
-    toast.success("Logged out successfully");
+    toast("Logged out successfully");
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -115,6 +117,7 @@ export default function MyAccount() {
 
   return (
     <>
+    <ToastContainer />
       <Container>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
           <ProfilePicture src={user.profilePicture || '/default-avatar.png'} alt="Profile Picture" />
@@ -198,10 +201,10 @@ export default function MyAccount() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setEditDialogOpen(false)} color="primary">
+        <Button variant="contained" onClick={handleEditSubmit} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleEditSubmit} color="primary">
+          <Button variant="contained" onClick={handleEditSubmit} color="primary">
             Save
           </Button>
         </DialogActions>

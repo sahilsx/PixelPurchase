@@ -1,28 +1,36 @@
 "use client";
 import * as React from "react";
-import { Container, Grid, Typography, Card, CardContent, CardMedia, Button, Box, TextField } from '@mui/material';
+import { Container,
+  TextField,
+  Typography,
+  Button,
+  Box,
+  Modal,
+  Grid,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions,  } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 // import { useRouter } from 'next/router';
 
 // Define some dummy product data
-const products = [
-  {
-    id: 1,
-    name: 'Product 1',
-    description: 'This is a short description of Product 1.',
-    price: '$29.99',
-    image: '/images/product1.jpg'
-  },
-  {
-    id: 2,
-    name: 'Product 2',
-    description: 'This is a short description of Product 2.',
-    price: '$49.99',
-    image: '/images/product2.jpg'
-  },
-  // Add more products as needed
-];
 
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 // Styled components
 const HeroSection = styled(Box)(({ theme }) => ({
   height: 400,
@@ -93,11 +101,12 @@ const NewsletterSection = styled(Box)(({ theme }) => ({
 
 export default function Home() {
 //   const router = useRouter();
-  
-const [open, setOpen] = React.useState(false);
-  const [selectedProduct, setSelectedProduct] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
 
+const [opens, setOpens] = React.useState(false); 
+const [open, setOpen] = React.useState(false);
+  const [selectedProduct, setSelectedProduct] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [Buy, setBuy] = React.useState([]);
   const [Name, setName] = React.useState("");
   const [Email, setEmail] = React.useState("");
   const [Price, setPrice] = React.useState("");
@@ -124,11 +133,51 @@ const [open, setOpen] = React.useState(false);
   React.useEffect(() => {
     getRows();
   }, []);
+  
 
-  const handleClose = () => setOpen(false);
+  const handleOpens = (product) => {
+    setSelectedProduct(product)
+    setOpens(true);
+  };
+
+  const handleCloses = () => {
+    setOpens(false);
+    
+  };
+
+
+
+
+
+
+
+
+ const handleClose = ()=>{
+setOpen(false);
+
+
+
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+ 
+
 
   const handleBuy = (product) => {
-    setSelectedProduct(product);
+    setBuy(product)
+    setOpens(false)
     setOpen(true);
     setProduct(product.title);
     setPrice(product.prize);
@@ -151,8 +200,14 @@ const [open, setOpen] = React.useState(false);
         body: JSON.stringify({ Userid,Name, Email, Mobile, Address, Product, Price }),
       });
       const result = await response.json();
+        setName("");
+        setEmail("");
+        setAddress("");
+        setMobile("");
+        setProduct("");
+        setPrice("");
       if (result.message === "Order Confirmed Successfully!") {
-        toast.success("Order Confirmed Successfully!");
+        toast("Order Confirmed Successfully!");
         setName("");
         setEmail("");
         setAddress("");
@@ -184,11 +239,10 @@ const [open, setOpen] = React.useState(false);
 
 
 
-  const handleProductClick = (id) => {
-    // router.push(`/product/${id}`);
-  };
-
+ 
   return (
+    <>
+   
     <Container>
       {/* Hero Section */}
       <HeroSection>
@@ -382,14 +436,11 @@ const [open, setOpen] = React.useState(false);
                 />
                 <CardContent style={{ textAlign: 'center' }}>
                   <Typography variant="h5">{offer.title}</Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    {offer.description}
-                  </Typography>
                   <Typography variant="h6">${offer.prize}</Typography>
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleProductClick(offer)}
+                    onClick={() => handleOpens(offer)}
                   >
                     View Details
                   </Button>
@@ -418,7 +469,7 @@ const [open, setOpen] = React.useState(false);
                   Don’t miss out on these exclusive discounts!
                   Upto 30%OFF on Products below 30000
                 </Typography>
-                <Button variant="contained" color="primary" style={{ marginTop: 10 }}>
+                <Button href="/categories/below30"  variant="contained" color="primary" style={{ marginTop: 10 }}>
                   Shop Now
                 </Button>
               </CardContent>
@@ -438,7 +489,7 @@ const [open, setOpen] = React.useState(false);
                   Don’t miss out on these exclusive discounts!
                   Upto 10%OFF on Products below 10000
                 </Typography>
-                <Button variant="contained" color="primary" style={{ marginTop: 10 }}>
+                <Button href="/categories/below10"  variant="contained" color="primary" style={{ marginTop: 10 }}>
                   Shop Now
                 </Button>
               </CardContent>
@@ -489,6 +540,153 @@ const [open, setOpen] = React.useState(false);
         </Button>
       </NewsletterSection>
 
+
+
+      <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth>
+    <DialogTitle>{selectedProduct.title}</DialogTitle>
+    <DialogContent>
+      <Box display="flex" flexDirection="row">
+        {/* Big Image */}
+        <Box flexShrink={0} mr={2}>
+          <img src={selectedProduct.imageUrl} alt={selectedProduct.title} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
+        </Box>
+        {/* Product Details */}
+        <Box flexGrow={1}>
+          <Typography variant="h6">Price: ${selectedProduct.prize}</Typography>
+          <Typography variant="body1">Description: {selectedProduct.description}</Typography>
+         
+        </Box>
+      </Box>
+    </DialogContent>
+    <DialogActions>
+    <Button variant="contained" onClick={() => handleBuy(selectedProduct)} color="primary">
+        Proceed To Buy
+      </Button>
+      <Button variant="contained" onClick={handleCloses} color="primary">
+        Close
+      </Button>
+    </DialogActions>
+  </Dialog>
+
+
+  <ToastContainer />
+  <Modal
+   
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <Typography variant="h5" textAlign={"center"}>
+              Buy Product
+            </Typography>
+            |
+            <form onSubmit={handleShipSubmit}>
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Name"
+                variant="filled"
+                name="Name"
+                fullWidth
+                value={Name}
+                onChange={(e) => {
+                  setName(e.target.value);}}
+           
+               
+              />
+             
+             <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Email"
+                variant="filled"
+                name="Email"
+                value={Email}
+                fullWidth
+                onChange={(e) => {
+                  setEmail(e.target.value);}}
+              />
+
+
+             <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Address"
+                name="Address"
+                variant="filled"
+                fullWidth
+                value={Address}
+                onChange={(e) => {
+                  setAddress(e.target.value);}}
+              />
+
+
+
+
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Mobile No."
+                name="Mobile"
+                type="number"
+                variant="filled"
+                fullWidth
+                value={Mobile}
+                onChange={(e) => {
+                  setMobile(parseInt(e.target.value, 10));;}}
+              />
+             
+
+
+             <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Product"
+                variant="filled"
+                name="Product"
+                fullWidth
+                value={Product}
+
+              />
+             
+              <TextField
+                margin="normal"
+                id="filled-basic"
+                label="Product Price"
+                name="Price"
+                variant="filled"
+                fullWidth
+                type="number"
+                value={Price}
+               
+              />
+             
+            
+
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                fullWidth
+                sx={{ mt: 3, mb: 2 }}
+                disabled={loading}
+              >
+                Pay for Order
+              </Button>
+
+            </form>
+          </Box>
+        </Modal>
+
+
+
+
+
+
+
+
       {/* Footer */}
       <Box py={4} textAlign="center" bgcolor="grey.200">
         <Typography variant="body2" color="textSecondary">
@@ -496,5 +694,28 @@ const [open, setOpen] = React.useState(false);
         </Typography>
       </Box>
     </Container>
-  );
+
+
+  
+
+    </>
+
+
+
+
+
+
+
+);
+
+
+
+
+
+
+
+
+
+
+  
 }

@@ -12,7 +12,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 import { Button } from "@mui/material";
 import { useRouter } from 'next/navigation';
 
@@ -78,18 +79,19 @@ export default function signIn(){
 
 
   const response = await res.json()
-  const token = response.token
-  const user = response.user._id
-  console.log("user",user)
-  console.log(token)
+  console.log(response.message,"res")
+  
+  
   if (response.message === "Logged in succesfully") {
+    const token = response.token
+  const user = response.user._id
      sessionStorage.setItem("token", token);
      sessionStorage.setItem("user", user);
-            toast.success("Logged in succesfully");
+            toast("Logged in succesfully");
             app.push("/");
 
-          } else {
-            toast.error(response.message);
+      } else {
+        toast.error(response.message);
           }
   }catch(error){
    console.log(error)
@@ -107,8 +109,9 @@ export default function signIn(){
   return (
     <>
 
-    <ToastContainer/>
       <Container component="main" maxWidth="xs">
+        
+       <ToastContainer/>
         <CssBaseline />
 
         <Box

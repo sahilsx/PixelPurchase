@@ -82,7 +82,7 @@ const SearchPage = () => {
             </Grid>
           ))
         ) : (
-          <Typography variant="h6">No products found</Typography>
+          <Typography margintop="3" variant="h6">No products found</Typography>
         )}
       </Grid>
     </Container>

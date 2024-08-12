@@ -1,42 +1,54 @@
 import Product from "../../../models/product";
 import connection from "../../../utils/condb";
 import messageHandler from "../../../utils/feature";
-// const upload = multer({
-//   dest: "uploads/",
-//   limits: { fieldSize: 1024 * 1024 * 10 },
-// });
+import multer from "multer"
+import { createRouter } from "next-connect";
+const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
 
-const handler = async (req, res) => {
+
+export const config= {
+  api: {
+    bodyParser: false,
+  },
+};
+
+
+const apiRoute = createRouter({
+  onError(error, req, res) {
+    console.error(error);
+    res.status(500).json({ error: `Something went wrong! ${error.message}` });
+  },
+  onNoMatch(req, res) {
+    res.status(404).json({ error: "Not Found" }); 
+  },
+});
+
+
+apiRoute.use(upload.single("image"))
+apiRoute.post(async (req, res) => {
   try {
     await connection();
-    const {_id, title, description, prize } = req.body;
-    // const product = await Product.findById(_id);
-
-    // if (!product) {
-    //   return messageHandler(res, 404, "No Product Found");
-    // }
-
-    // const { title, description, prize } = req.body;
-
-    // await upload.single("image");
-
-    // const image = req.file.path;
-
-    // const uploadImg = await cloudinary.uploader.upload(image, {
-    //   folder: "ecommerce",
-    // });
-
-    // if (!uploadImg) {
-    //   return messageHandler(res, 400, "Cloudinary Error");
-    // }
-
-    // const imageUrl = uploadImg.secure_url;
+    const {_id, title, description, prize,image } = req.body;
+    console.log("reqssss",req.body)
+    if (!image) {
+            return messageHandler(res, 400, "select image");
+          }
+      
+          const uploadImg = await cloudinary.uploader.upload(image, {
+            folder: "ecommerce",
+          });
+      
+          if (!uploadImg) {
+            return messageHandler(res, 400, "Cloudinary Error");
+          }
+          
+          const imageUrl = uploadImg.secure_url;
 
     const updateBook = await Product.findByIdAndUpdate({_id},{
       title,
       description,
       prize,
-      // imageUrl,
+      imageUrl,
     });
 
     if (updateBook) {
@@ -47,5 +59,44 @@ const handler = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
-export default handler;
+});
+
+export default apiRoute.handler();
+
+
+
+
+
+// apiRoute.post(async (req, res) => {
+//   try {
+//     connection();
+
+//     const { title,  description, prize, image } = req.body;
+//     console.log(req.body)
+
+//     if (title === "" ||   description === "" || prize === "") {
+//       return messageHandler(res, 400, "All details of product Required");
+//     }
+
+//  
+//     console.log("price",prize)
+//     const product = await  Product.create({
+//       title,
+//       description,
+//       prize,
+//       imageUrl,
+//     });
+//     console.log(product)
+
+//     if (product) {
+//       return messageHandler(res, 201, "Product saved Succesfully");
+//     } else {
+//       return messageHandler(res, 200, "Some Error!");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return messageHandler(res, 500, "server Error");
+//   }
+// });
+
+// 
