@@ -58,6 +58,7 @@ const AdminDashboard = () => {
       formData.append("description", description);
       formData.append("prize", prize);
       formData.append("image", image);
+      console.log("formss",formData)
 
       const res = await fetch("/api/Products/Product", {
         method: "POST",
@@ -68,7 +69,7 @@ const AdminDashboard = () => {
       console.log("data", data);
 
       if (data.message === "Product saved Successfully") {
-        toast.success("Product saved Successfully");
+        toast("Product saved Successfully");
         setTitle("");
         setDesciption("");
         setPrice("");
@@ -175,7 +176,7 @@ const AdminDashboard = () => {
             Upload Image
           </Button>
         </label>
-        {image && <img src={image} alt="Selected" width={100} />}
+        {/* {image && <img src={image} alt="Selected" width={100} />} */}
       </Box>
 
       <Button
