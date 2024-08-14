@@ -342,6 +342,7 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
+
 const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
@@ -384,11 +385,42 @@ export default function Navbar() {
   const router = useRouter();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [isAuthenticated, setIsAuthenticated] = React.useState();
+
+
+
+ React.useEffect(() => {
+  const fetchUser = async () => {
+    try {
+    const userId = sessionStorage.getItem("user");
+    if(userId){
+      setIsAuthenticated(userId)
+
+    }
+      
+      
+      
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  fetchUser();
+}, []);
+
+
+
+
+
+
+
+
+
+
 
   const handleProfileMenuOpen = (e) => {
     setAnchorEl(e.currentTarget);
   };
-
+ 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -398,12 +430,19 @@ export default function Navbar() {
     handleMobileMenuClose();
   };
 
-  const handleOpen = () => {
+  const handleOpenProfile = () => {
     router.push("/user/myaccount");
   };
 
-  const handleOpen1 = () => {
+  const handleOpenOrders = () => {
     router.push("/user/Getmyorder");
+  };
+  const handleOpenLogin = () => {
+    router.push("/user/login");
+  };
+
+  const handleOpenRegister = () => {
+    router.push("/user/register");
   };
 
   const handleMobileMenuOpen = (e) => {
@@ -435,9 +474,19 @@ export default function Navbar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleOpen}>My account</MenuItem>
-      <MenuItem onClick={handleOpen1}>My Orders</MenuItem>
+    > 
+    {isAuthenticated ? (
+        <>
+          <MenuItem onClick={handleOpenProfile}>My account</MenuItem>
+          <MenuItem onClick={handleOpenOrders}>My Orders</MenuItem>
+        </>
+      ) : (
+        <>
+          <MenuItem onClick={handleOpenLogin}>Login</MenuItem>
+          <MenuItem onClick={handleOpenRegister}>Register</MenuItem>
+        </>
+      )}
+    
     </Menu>
   );
 

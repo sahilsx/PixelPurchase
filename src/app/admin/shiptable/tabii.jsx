@@ -33,6 +33,8 @@ export default function CustomPaginationActionsTable() {
   const [editDialogOpen, setEditDialogOpen] = React.useState(false);
   const [totalCount, setTotalCount] = React.useState(0);
   const [page, setPage] = React.useState(0);
+  const [notify, setnotify] = React.useState();
+
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const app = useRouter();
 
@@ -65,23 +67,25 @@ export default function CustomPaginationActionsTable() {
     fetchRows(0, parseInt(event.target.value, 10));
   };
 
-  const handleEdit = (row) => {
-    setFormData(row);
-    setEditDialogOpen(true);
+  const handlenotify = (row) => {
+    setnotify(row)
+    setEditDialogOpen(true)
+   
   };
 
-  const handleEditSubmit = async () => {
+  const handlenotifysend = async () => {
     try {
-      const response = await fetch('/api/Products/edit', {
-        method: 'PUT',
+      const response = await fetch('/api/order/notify', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({email:notify}),
       });
       const result = await response.json();
       if (response.ok) {
         setEditDialogOpen(false);
+        toast("mail has been sent")
       } else {
         console.error(result.message);
       }
@@ -162,7 +166,7 @@ export default function CustomPaginationActionsTable() {
                     variant="contained"
                     color="primary"
                     sx={{ borderRadius: 2 }}
-                    onClick={() => handleEdit(clients)}
+                    onClick={() => handlenotify(clients.Email)}
                   >
                     NOTIFY
                   </Button>
@@ -214,6 +218,39 @@ export default function CustomPaginationActionsTable() {
           </Button>
         </DialogActions>
       </Dialog>
+
+
+
+
+
+
+
+      <Dialog
+        open={editDialogOpen}
+        onClose={() => editDialogOpen(false)}
+      >
+        <DialogTitle>Send Mail</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to send the mail?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained"  onClick={() => setEditDialogOpen(false)} color="primary">
+            Cancel
+          </Button>
+          <Button variant="contained" onClick={handlenotifysend} color="secondary">
+           Send
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+
+
+
+
+
     </>
   );
 }

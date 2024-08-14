@@ -306,6 +306,7 @@ import {
   TableCell,
   TableContainer,
   TableFooter,
+  Modal,
   TablePagination,
   TableRow,
   Paper,
@@ -321,6 +322,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { json } from "react-router-dom";
 
 // Custom pagination actions component
 function TablePaginationActions(props) {
@@ -418,11 +420,11 @@ export default function CustomPaginationActionsTable() {
 
   React.useEffect(() => {
     fetchRows(page, rowsPerPage);
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage,]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-    fetchRows(newPage, rowsPerPage);
+    fetchRows(newPage, rowsPerPage,);
   };
 
   const handleImage = (e) => {
@@ -498,21 +500,39 @@ export default function CustomPaginationActionsTable() {
 
 
 
-  const handleEditSubmit = async () => {
+  const handleEditSubmit = async (e) => {
     try {
-      const formDatas = new FormData();
+      e.preventDefault();
+      const formDatas= new FormData();
       formDatas.append("_id", formData._id);
       formDatas.append("title", formData.title);
-      formDatas.append("description", formData.description);
+      formDatas.append("description",formData.description);
       formDatas.append("prize", formData.prize);
   
       if (imageFile) {
-        formDatas.append("image", imageFile); // Append image file if present
+        formDatas.append("image", imageFile); 
+        const response = await fetch("/api/Products/edits", {
+          method: "PUT",
+          // headers: {
+          //   "Content-Type": "application/json",
+          // },
+          // body: JSON.stringify(formData),
+          body:formDatas,
+         
+          // No need to set Content-Type header when using FormData
+        });
+    
+        const result = await response.json();
+        // Append image file if present
       }
   
       const response = await fetch("/api/Products/edits", {
         method: "PUT",
-        body: formDatas,
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
+        // body: JSON.stringify(formData),
+        body:formDatas,
         // No need to set Content-Type header when using FormData
       });
   
@@ -520,6 +540,9 @@ export default function CustomPaginationActionsTable() {
   
       if (response.ok) {
         setEditDialogOpen(false);
+        
+        toast("Item edited successfully");
+        
       } else {
         console.error("Server error:", result.message);
       }
@@ -714,11 +737,11 @@ export default function CustomPaginationActionsTable() {
           </Button>
         </DialogActions>
       </Dialog> */}
-
-      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+ 
+      {/* <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
         <DialogTitle>Edit Product</DialogTitle>
         <DialogContent>
-        <form onSubmit={handleEditSubmit}>
+        
           <TextField
             autoFocus
             margin="dense"
@@ -754,18 +777,121 @@ export default function CustomPaginationActionsTable() {
           {formData.imageUrl && (
             <img src={formData.imageUrl} alt="Preview" height={100} />
           )}
-       </form>
+       
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={() => setEditDialogOpen(false)}>
             Cancel
           </Button>
-          <Button variant="contained" onClick={handleEditSubmit}>
+          <Button variant="contained"onClick={handleEditSubmit} >
             Save
           </Button>
+         
         </DialogActions>
-      </Dialog>
-        
+       
+      </Dialog>  */}
+
+
+
+
+<Modal
+  open={editDialogOpen} onClose={() => setEditDialogOpen(false)}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box
+    sx={{
+      margin: "30px auto",
+      width: { xs: '90%', sm: 500 }, // Responsive width
+      borderRadius: 2,
+      boxShadow: 10,
+      backgroundColor: "white",
+      padding: 4, // Added padding inside the modal for better spacing
+    }}
+  >
+    <Typography variant="h5" textAlign="center" mb={3}>
+      Add Product
+    </Typography>
+    <form onSubmit={handleEditSubmit}>
+    <TextField
+            margin="dense"
+            label="Title"
+            type="text"
+            name="title"
+            fullWidth
+            value={formData.title || ''}
+            onChange={handleChange}
+          />
+      <TextField
+        margin="normal"
+         name="description"
+        label="Product Description"
+        variant="outlined"
+        fullWidth
+        multiline
+        rows={4}
+        value={formData.description}
+        onChange={handleChange}
+      />
+
+      <TextField
+        margin="normal"
+         name="prize"
+        label="Product Price"
+        variant="outlined"
+        fullWidth
+        type="number"
+        value={formData.prize}
+        onChange={handleChange}
+      />
+      <Box mb={2}>
+        <input
+          accept="image/*"
+          id="image-upload"
+          type="file"
+          onChange={handleImage}
+          style={{ display: 'none' }}
+        />
+        <label htmlFor="image-upload">
+          <Button
+            variant="contained"
+            component="span"
+            color="secondary"
+            sx={{ width: '100%' }}
+          >
+            Upload Image
+          </Button>
+        </label>
+        {/* {image && <img src={image} alt="Selected" width={100} />} */}
+      </Box>
+
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        fullWidth
+        sx={{ mt: 2 }}
+       
+      >
+        { "Add Product"}
+      </Button>
+    </form>
+  </Box>
+</Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
       <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}

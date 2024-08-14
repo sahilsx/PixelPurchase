@@ -1,4 +1,4 @@
-import Product from "../../../models/product";
+
 import connection from "../../../utils/condb";
 import messageHandler from "../../../utils/feature";
 import Ship from "../../../models/ship";

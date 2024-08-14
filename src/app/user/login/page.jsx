@@ -83,8 +83,8 @@ export default function signIn(){
   
   
   if (response.message === "Logged in succesfully") {
-    const token = response.token
-  const user = response.user._id
+     const token = response.token
+      const user = response.user._id
      sessionStorage.setItem("token", token);
      sessionStorage.setItem("user", user);
             toast("Logged in succesfully");

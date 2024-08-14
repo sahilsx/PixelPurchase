@@ -905,7 +905,7 @@ const Home = () => {
 
   return (
     <>
-      <IsAuthenticated />
+     
       <ToastContainer />
       <Container sx={containerStyle}>
         <Box sx={logoContainerStyle}>
@@ -1002,7 +1002,7 @@ const Home = () => {
           </form>
         </Box>
       </Modal>
-      
+      <br></br>
      <Main/>
     </>
   );

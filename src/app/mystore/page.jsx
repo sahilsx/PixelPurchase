@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import {
-  Container,
+ 
   TextField,
   Typography,
   Button,
@@ -9,24 +9,20 @@ import {
   Modal,
   Grid,
   Card,
-  CardActions,
+ 
   CardContent,
   CardMedia,
+  Dialog, DialogTitle, DialogContent, DialogActions, 
 } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
+import { styled } from '@mui/material/styles';
 import { useRouter } from "next/navigation";
 import IsAuthenticated from "../user/Auth/page";
-import { ConstructionOutlined } from "@mui/icons-material";
 
 
-const textStyle = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  marginTop: 6,
-  fontWeight: "bolder",
-  fontSize:"30px"
-};
+
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -39,8 +35,53 @@ const style = {
   p: 4,
 };
 
+
+
+
+
+
+
+
+
+
+
+const ProductCard = styled(Card)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+}));
+
+const ProductImage = styled(CardMedia)({
+  height: 200,
+  width: '100%',
+  objectFit: 'cover',
+});
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Store = () => {
   const [open, setOpen] = React.useState(false);
+  const [opens, setOpens] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState([]);
   const [loading , setLoading ] = React.useState(false);
 
@@ -50,22 +91,15 @@ const Store = () => {
 
 
 
-
+  const [Userid, setUserid] = React.useState("");
   const [Name, setName] = React.useState("");
   const [Email, setEmail] = React.useState("");
   const [Price, setPrice] = React.useState(0);
-  const [Address, setaddress] = React.useState("");
-  const [Mobile, setmobile] = React.useState(0);
+  const [Address, setAddress] = React.useState("");
+  const [Mobile, setMobile] = React.useState(0);
   const [Product, setProduct] = React.useState("");
-  //  const app =useRouter();
-  //   const token = sessionStorage.getItem("token");
-  //  React.useEffect(() => {
+  const [Buy, setBuy] = React.useState([]);
 
-  //     if (!token) {
-  //       app.push("/user/login")
-  //     }
-  //   }, [token ]);
-  //   console.log("token",token)
 
   const [data, setData] = React.useState([]);
 
@@ -90,6 +124,7 @@ const Store = () => {
   }, []);
 
 const handleClose = () => setOpen(false);
+const handleCloses = () => setOpens(false);
 const Handleship= async(products)=>{
  setOpen(true)
  setSelectedProduct(products)
@@ -97,89 +132,73 @@ const Handleship= async(products)=>{
  setPrice(selectedProduct.prize)
 
 }
-async function handleShipSubmit(e) {
+
+
+const handleOpens = (product) => {
+  setSelectedProduct(product)
+  setOpens(true);
+};
+
+const handleBuy = (product) => {
+  setBuy(product)
+  setOpens(false)
+  setOpen(true);
+  setProduct(product.title);
+  setPrice(product.prize);
+};
+
+
+
+
+
+
+const handleShipSubmit = async (e) => {
+  const user= await sessionStorage.getItem("user");
+  if(user){
+    setUserid(user)
+
+  }
+  e.preventDefault();
+  setLoading(true);
   try {
-
-    e.preventDefault();
-    // const formData = new FormData();
-    // formData.append("Name", Name);
-    // formData.append("Email", Email);
-    // formData.append("Mobile", Mobile);
-    // formData.append("Address", Address);
-    // formData.append("Product", Product);
-    // formData.append("Price", Price);
-
-
-
-
-
-
-    
     const response = await fetch('/api/order/ship', {
       method: 'POST',
-      // body:(formData),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-    body: JSON.stringify({"Name":Name,"Email":Email,"Mobile":Mobile,"Address":Address,"Product":Product,"Price":Price}
-
-
-
-
-
-
-
-
-    ),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ Userid,Name, Email, Mobile, Address, Product, Price }),
     });
     const result = await response.json();
-   
-    if (result .message === "Order Confirmed Succesfully!") {
-      toast.success("Order Confirmed Succesfully!");
-      setName("")
-      setEmail("")
-      setPrice("")
-      setProduct("")
-      setmobile("")
-      setaddress("")
-
+      setName("");
+      setEmail("");
+      setAddress("");
+      setMobile("");
+     
+    if (result.message === "Order Confirmed Successfully!") {
+      toast("Order Confirmed Successfully!");
+      setName("");
+      setEmail("");
+      setAddress("");
+      setMobile("");
+      
+      setOpen(false);
     } else {
-      console.error(result.message);
+      toast.error(result.message);
     }
   } catch (error) {
-    console.error('Error updating trip:', error);
+    toast.error("Error confirming order.");
+  } finally {
+    setLoading(false);
   }
 };
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setSelectedProduct((prevData) => ({ ...prevData, [name]: value }));
-};
 
 
-  const CardComponent = ({ image, price, title, description,products }) => {
-    return (
-      <Card sx={{ maxWidth: 345, margin: 2 }}>
-        <CardMedia component="img" height="140" image={image} alt={title} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
 
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Typography gutterBottom variant="h5" component="div">
-            {price}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button onClick={() => Handleship(products)} size="large">Buy</Button>
-          <Button size="small">Learn More</Button>
-        </CardActions>
-      </Card>
-    );
-  };
+
+
+
+
 
   return (
     <>
@@ -189,27 +208,46 @@ const handleChange = (e) => {
 
       
 
-      <Box sx={textStyle}>
-        <Typography variant="h4" align="center" color="black">
-          Explore a variety of Products that suit your choice !
-        </Typography>
-      </Box>
-
-      <Container sx={{ py: 5 }}>
-        <Grid container spacing={4}>
-          {data.map((products, index) => (
-            <Grid item key={index} xs={12} sm={6} md={4}>
-              <CardComponent
-                image={products.imageUrl}
-                title={products.title}
-                description={products.description}
-                price={products.prize}
-                products={products}
-              />
+      <Box my={4}>
+        <Typography variant="h4" align="center">Best Sellers</Typography>
+        <Grid container spacing={4} style={{ marginTop: 20 }}>
+          {data.map((offer) => (
+            <Grid item xs={12} sm={6} md={4} key={offer._id}>
+              <ProductCard>
+                <ProductImage
+                  component="img"
+                  image={offer.imageUrl}
+                  alt={offer.title}
+                />
+                <CardContent style={{ textAlign: 'center' }}>
+                  <Typography variant="h5">{offer.title}</Typography>
+                  <Typography variant="h6">${offer.prize}</Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => handleOpens(offer)}
+                  >
+                    View Details
+                  </Button>
+                </CardContent>
+              </ProductCard>
             </Grid>
           ))}
         </Grid>
-      </Container>
+      </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -217,6 +255,7 @@ const handleChange = (e) => {
       <ToastContainer />
 
       <Modal
+   
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
@@ -264,12 +303,8 @@ const handleChange = (e) => {
                 fullWidth
                 value={Address}
                 onChange={(e) => {
-                  setaddress(e.target.value);}}
+                  setAddress(e.target.value);}}
               />
-
-
-
-
 
 
 
@@ -284,7 +319,7 @@ const handleChange = (e) => {
                 fullWidth
                 value={Mobile}
                 onChange={(e) => {
-                  setmobile(parseInt(e.target.value, 10));;}}
+                  setMobile(parseInt(e.target.value, 10));;}}
               />
              
 
@@ -334,7 +369,31 @@ const handleChange = (e) => {
 
 
 
-
+        <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth>
+    <DialogTitle>{selectedProduct.title}</DialogTitle>
+    <DialogContent>
+      <Box display="flex" flexDirection="row">
+        {/* Big Image */}
+        <Box flexShrink={0} mr={2}>
+          <img src={selectedProduct.imageUrl} alt={selectedProduct.title} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
+        </Box>
+        {/* Product Details */}
+        <Box flexGrow={1}>
+          <Typography variant="h6">Price: ${selectedProduct.prize}</Typography>
+          <Typography variant="body1">Description: {selectedProduct.description}</Typography>
+         
+        </Box>
+      </Box>
+    </DialogContent>
+    <DialogActions>
+    <Button variant="contained" onClick={() => handleBuy(selectedProduct)} color="primary">
+        Proceed To Buy
+      </Button>
+      <Button variant="contained" onClick={handleCloses} color="primary">
+        Close
+      </Button>
+    </DialogActions>
+  </Dialog>
 
 
 

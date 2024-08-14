@@ -13,7 +13,8 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+ import 'react-toastify/dist/ReactToastify.css';
 
 export default function SignUp() {
   // this method is used when we have multipart form data with picture or video in the form body
@@ -45,7 +46,7 @@ export default function SignUp() {
       console.log(data.token);
       if (data.message === "User Created Succesfully") {
         sessionStorage.setItem("token",data.token)
-        toast.success("User Created Succesfully");
+        toast("User Created Succesfully");
         setFirstName("")
         setEmail("")
         setLastName("")
