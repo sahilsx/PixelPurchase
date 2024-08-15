@@ -72,7 +72,7 @@ const cardstyle={
 const CategoryCard = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(2),
-  border: `1px solid ${theme.palette.divider}`,
+  border: `1px solid ${theme.palette.divider}`
 }));
 
 const ProductCard = styled(Card)(({ theme }) => ({
@@ -252,9 +252,10 @@ setOpen(false);
         </Box>
       </HeroSection>
 
+<br backgroundColor="black"></br>
       {/* Featured Categories */}
-      <Box my={4}>
-      <Typography variant="h4" align="center" gutterBottom>
+      <Box    my={4} marginTop={5}>
+      <Typography  padding={3} backgroundColor="black" fontWeight={200} color="pink" variant="h4" align="center" gutterBottom>
       Featured Categories
     </Typography>
     <Grid container spacing={4} style={{ marginTop: 20 }} >
@@ -423,9 +424,9 @@ setOpen(false);
       </Box>
 
       {/* Best Sellers */}
-      <Box my={4}>
-        <Typography variant="h4" align="center">Best Sellers</Typography>
-        <Grid container spacing={4} style={{ marginTop: 20 }}>
+      <Box  my={4} marginTop={5}>
+        <Typography  padding={3} backgroundColor="black" fontWeight={200} color="pink" variant="h4" align="center">Trendindg Products</Typography>
+        <Grid paddingLeft={2} paddingBottom={3} paddingRight={2} container spacing={4} style={{ marginTop: 20 }}>
           {data.map((offer) => (
             <Grid item xs={12} sm={6} md={4} key={offer._id}>
               <ProductCard>
@@ -452,20 +453,20 @@ setOpen(false);
       </Box>
 
       {/* Special Offers */}
-      <Box my={4}>
-        <Typography variant="h4" align="center">Special Offers</Typography>
-        <Grid container spacing={4} style={{ marginTop: 20 }}>
+      <Box backgroundColor="brown" my={4}>
+        <Typography padding={3} backgroundColor="black"  fontWeight={200} color="white" variant="h4" align="center">Special Offers</Typography>
+        <Grid  paddingLeft={5} paddingBottom={3} paddingRight={5} container spacing={4} style={{ marginTop: 10 }}>
           <Grid item xs={12} md={6}>
             <Card>
               <CardMedia
                 component="img"
                 image="https://images.pexels.com/photos/5872348/pexels-photo-5872348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 alt="Special Offer 1"
-                style={{ height: 300, objectFit: 'cover' }}
+                style={{ height: 400, objectFit: 'cover' }}
               />
               <CardContent>
-                <Typography variant="h5">Offer 1</Typography>
-                <Typography variant="h6"  color="textSecondary">
+                <Typography variant="h5"> </Typography>
+                <Typography variant="h6"  color="">
                   Don’t miss out on these exclusive discounts!
                   Upto 30%OFF on Products below 30000
                 </Typography>
@@ -481,11 +482,11 @@ setOpen(false);
                 component="img"
                 image="https://images.pexels.com/photos/5935738/pexels-photo-5935738.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt="Special Offer 2"
-                style={{ height: 300, objectFit: 'cover' }}
+                style={{ height: 400, objectFit: 'cover' }}
               />
               <CardContent>
-                <Typography variant="h5">Offer 2</Typography>
-                <Typography variant="h6" color="textSecondary">
+                <Typography variant="h5"></Typography>
+                <Typography variant="h6" color="">
                   Don’t miss out on these exclusive discounts!
                   Upto 10%OFF on Products below 10000
                 </Typography>
@@ -500,10 +501,10 @@ setOpen(false);
       </Box>
 
       {/* Customer Testimonials */}
-      <Box my={4}>
-        <Typography variant="h4" align="center">Customer Testimonials</Typography>
-        <Grid container spacing={4} style={{ marginTop: 20 }}>
-          <Grid item xs={12} md={6}>
+      <Box backgroundColor="white"  my={4}>
+        <Typography padding={3} backgroundColor="black" fontWeight={200} color="pink" variant="h4" align="center">Customer Testimonials</Typography>
+        <Grid  container spacing={4} style={{ marginTop: 20 }}>
+          <Grid  item xs={12} md={6}>
             <TestimonialCard>
               <Typography variant="h6">John Doe</Typography>
               <Typography variant="body2" color="textSecondary">
@@ -719,3 +720,11 @@ setOpen(false);
 
   
 }
+
+
+
+
+
+
+
+
