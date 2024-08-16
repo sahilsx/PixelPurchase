@@ -665,8 +665,8 @@ export default function Navbar() {
       >
         <StyledDialogTitle id="responsive-dialog-title">Menu</StyledDialogTitle>
         <StyledDialogContent>
-          <MenuItem  onClick={() => handleNavigate('/about')}>About</MenuItem>
-          <MenuItem onClick={() => handleNavigate('/contact')}>Contact</MenuItem>
+          <MenuItem  onClick={() => handleNavigate('/about')}>About Us</MenuItem>
+          <MenuItem onClick={() => handleNavigate('/contact')}>Contact Us</MenuItem>
           <MenuItem onClick={() => handleNavigate('/feedback')}>Feedback</MenuItem>
         </StyledDialogContent>
         <StyledDialogActions>
