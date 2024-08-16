@@ -52,7 +52,7 @@ const ProductCard = styled(Card)(({ theme }) => ({
 }));
 
 const ProductImage = styled(CardMedia)({
-  height: 200,
+  height: 400,
   width: '100%',
   objectFit: 'cover',
 });
@@ -96,7 +96,7 @@ const Store = () => {
   const [Email, setEmail] = React.useState("");
   const [Price, setPrice] = React.useState(0);
   const [Address, setAddress] = React.useState("");
-  const [Mobile, setMobile] = React.useState(0);
+  const [Mobile, setMobile] = React.useState();
   const [Product, setProduct] = React.useState("");
   const [Buy, setBuy] = React.useState([]);
 
@@ -209,7 +209,7 @@ const handleShipSubmit = async (e) => {
       
 
       <Box my={4}>
-        <Typography variant="h4" align="center">Best Sellers</Typography>
+        <Typography padding={5} backgroundColor="gray" color="white" variant="h4" align="center">Explore a variety of products that suits you choice.........</Typography>
         <Grid container spacing={4} style={{ marginTop: 20 }}>
           {data.map((offer) => (
             <Grid item xs={12} sm={6} md={4} key={offer._id}>

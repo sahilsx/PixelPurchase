@@ -82,7 +82,7 @@ const ProductCard = styled(Card)(({ theme }) => ({
 }));
 
 const ProductImage = styled(CardMedia)({
-  height: 200,
+  height: 400,
   width: '100%',
   objectFit: 'cover',
 });
@@ -437,7 +437,7 @@ setOpen(false);
                 />
                 <CardContent style={{ textAlign: 'center' }}>
                   <Typography variant="h5">{offer.title}</Typography>
-                  <Typography variant="h6">${offer.prize}</Typography>
+                  <Typography >${offer.prize}</Typography>
                   <Button
                     variant="contained"
                     color="primary"

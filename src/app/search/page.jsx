@@ -42,7 +42,7 @@ import { Container,
   }));
   
   const ProductImage = styled(CardMedia)({
-    height: 200,
+    height: 400,
     width: '100%',
     objectFit: 'cover',
   });
