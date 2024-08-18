@@ -19,7 +19,7 @@ const InputField = styled(TextField)(({ theme }) => ({
 export default function Contact() {
   const [Name, setname] = useState();
   const [Email, setemail] = useState();
-  const [Reason, setmessage] = useState();
+  const [Message, setmessage] = useState();
   const [submitted, setSubmitted] = useState(false);
 
   
@@ -31,11 +31,11 @@ export default function Contact() {
         headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({Name,Email,Reason,}),
+            body: JSON.stringify({Name,Email,Message,}),
         
        
       });
-      if (res.Message=="Your message has been sent SuccessFully!") {
+    if (res.ok) {
     setSubmitted(true);
    setname(""),
    setemail(""),
@@ -93,7 +93,7 @@ export default function Contact() {
                 multiline
                 rows={4}
                 required
-                value={Reason}
+                value={Message}
                 onChange={(e) => setmessage(e.target.value)}
               />
             </Grid>

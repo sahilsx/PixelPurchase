@@ -9,27 +9,29 @@ const handler = async (req,res)=>{
 
 try{
     await connection();
-const{Name,Email,Reason} =req.body
+const{Name,Email,Message} =req.body
 console.log(req.body)
-if(Name ==="" || Email ===""||Reason ===""){
+if(Name ==="" || Email ===""||Message ===""){
     return messageHandler(res,400,"All Credentials Required!")
 }
 
-console.log(Reason)
+console.log(Message)
  const send= await contact.create({
-    // Name,
-    // Email,
-    Reason,
+    Name,
+    Email,
+    Message,
 
 
 })
+console.log("HU",send.Name)
+console.log("HU",send.Message)
 
 
 
 
 if(send){
     
-    res.status(200).json({message:"Your message has been sent SuccessFully!",});
+    res.status(200).json({message:"Your message has been sent SuccessFully!",send});
 }
 
 

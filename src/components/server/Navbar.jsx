@@ -667,7 +667,7 @@ export default function Navbar() {
         <StyledDialogContent>
           <MenuItem  onClick={() => handleNavigate('/about')}>About Us</MenuItem>
           <MenuItem onClick={() => handleNavigate('/contact')}>Contact Us</MenuItem>
-          <MenuItem onClick={() => handleNavigate('/feedback')}>Feedback</MenuItem>
+          <MenuItem onClick={() => handleNavigate('/follow')}>Follow Us</MenuItem>
         </StyledDialogContent>
         <StyledDialogActions>
           <Button onClick={handleDialogClose} color="inherit">
