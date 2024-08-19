@@ -450,52 +450,8 @@ export default function CustomPaginationActionsTable() {
     setEditDialogOpen(true);
   };
 
-  // const handleEditSubmit = async () => {
-  //   try {
-  //     // setLoading(true);
-   
-  //     const formDatas = new FormData();
-      
-  //     if (imageFile) {
-  //     formDatas.append("_id",formData._id);
-  //     formDatas.append("title",formData.title);
-  //     formDatas.append("description",formData.description);
-  //     formDatas.append("prize",formData.prize);
-  //     formDatas.append("image",imageFile);
-  //     console.log("forms",formDatas)
-  //     const response = await fetch("/api/Products/edits", {
-  //         method: "PUT",
-  //         body:formDatas,
-  //       });
-  //       const result = await response.json();
-  //       if (response.ok) {
-  //         setEditDialogOpen(false);
-  //       } else {
-  //         console.log(result.message);
-  //       }
-        
-  //     } else{
-  //       formDatas.append("_id", formData._id);
-  //       formDatas.append("title", formData.title);
-  //       formDatas.append("description", formData.description);
-  //       formDatas.append("prize", formData.prize);
-  //      console.log("forms",formData)
-  //       const response = await fetch("/api/Products/edits", {
-  //         method: "PUT",
-  //         body:formDatas,
-  //       });
-  //       const result = await response.json();
-  //       if (response.ok) {
-  //         setEditDialogOpen(false);
-  //       } else {
-  //         console.log(result.message);
-  //       }
-      
-  //   } }catch (error) {
-  //     console.log("error",error)
-  //   }
 
-  // };
+  
 
 
 

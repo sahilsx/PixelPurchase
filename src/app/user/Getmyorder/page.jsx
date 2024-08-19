@@ -72,12 +72,12 @@ export default function Myorder() {
   return (
     <>
     <ToastContainer />
-      <Typography variant="h4" align="center" marginTop={5} marginBottom={3}>
+      <Typography variant="h4" align="center" marginTop={5} marginBottom={3} className="animate__animated animate__fadeIn ">
         My Orders
       </Typography>
       <Grid container spacing={3} justifyContent="center">
         {user.map((item) => (
-          <Grid item xs={12} sm={6} md={4} key={item._id}>
+          <Grid item xs={12} sm={6} md={4} key={item._id} className="animate__animated animate__fadeIn animate__delay-1s">
             <Card variant="outlined" sx={{ boxShadow: 3 }}>
               <CardContent>
                 <Typography variant="h6" component="div" fontWeight="bold">
@@ -104,6 +104,7 @@ export default function Myorder() {
                     setCancelId(item._id);
                     setDeleteDialogOpen(true);
                   }}
+                     className="animate__animated animate__pulse"
                 >
                   Cancel Order
                 </Button>
@@ -113,7 +114,7 @@ export default function Myorder() {
         ))}
       </Grid>
 
-      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}  className="animate__animated animate__zoomIn">
         <DialogTitle>Cancel Order</DialogTitle>
         <DialogContent>
           <DialogContentText>

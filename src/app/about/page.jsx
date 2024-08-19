@@ -1,82 +1,26 @@
-// pages/about.js
-"use client";
+// // pages/about.js
+// "use client";
+
+
+
+
+
+
+// // pages/about.js
 // import React from 'react';
 // import { Container, Typography, Box, Grid, Paper } from '@mui/material';
 // import { styled } from '@mui/material/styles';
 
-// const DeveloperImage = styled("img")({
-//   width: '100%',
-//   height: 'auto',
-//   borderRadius: '8px',
-// });
-
-// const AboutContainer = styled(Container)({
-//   marginTop: '40px',
-//   marginBottom: '40px',
-// });
-
-// const SectionTitle = styled(Typography)({
-//   marginBottom: '20px',
-//   fontWeight: 'bold',
-// });
-
-// const SectionContent = styled(Typography)({
-//   marginBottom: '20px',
-//   lineHeight: '1.6',
-// });
-
-// export default function About() {
-//   return (
-//     <AboutContainer>
-//       <Grid container spacing={4}>
-//         <Grid item xs={12} md={6}>
-//           <SectionTitle variant="h4">About the Developer</SectionTitle>
-//           <SectionContent variant="body1">
-//             Hello! I'm a passionate developer with a vision to create amazing web applications that solve real-world problems. With a focus on delivering high-quality, scalable, and user-friendly applications, I leverage modern technologies and best practices to ensure exceptional results.
-//           </SectionContent>
-//           <SectionTitle variant="h4">Technologies Used</SectionTitle>
-//           <SectionContent variant="body1">
-//             This project utilizes a range of powerful technologies and tools to build robust and efficient applications:
-//             <ul>
-//               <li>Next.js: A React framework for server-side rendering and static site generation.</li>
-//               <li>Material-UI: A popular React UI framework that provides a set of components and styles.</li>
-//               <li>NodeMailer: A module for sending emails from Node.js applications.</li>
-//               <li>Cloudinary: A cloud-based service for managing and delivering images and videos.</li>
-//               <li>Multer: A middleware for handling file uploads in Node.js.</li>
-//               <li>ES6: Modern JavaScript syntax for cleaner and more efficient code.</li>
-//               <li>MongoDB: A NoSQL database for flexible and scalable data storage.</li>
-//             </ul>
-//           </SectionContent>
-//         </Grid>
-//         <Grid item xs={12} md={6}>
-//           <Paper elevation={3} sx={{ padding: 2 }}>
-//             <DeveloperImage
-//               src="https://images.pexels.com/photos/5935738/pexels-photo-5935738.jpeg?auto=compress&cs=tinysrgb&w=600"
-//               alt="Developer Image"
-//             />
-//           </Paper>
-//         </Grid>
-//       </Grid>
-//     </AboutContainer>
-//   );
-// }
-// pages/about.js
-// 
-
-
-
-
-
-
-// pages/about.js
-// import React from 'react';
-// import { Container, Typography, Box, Grid, Paper } from '@mui/material';
-// import { styled } from '@mui/material/styles';
-
+// // Styled components
 // const DeveloperImage = styled('img')({
 //   width: '100%',
-//   height:"400px",
-//   borderRadius: '8px',
+//   maxWidth: '500px',  // Medium size image
+// //   height: 'auto',
+//   height: "500px",
+
+// borderRadius: '',
+//     // Rounded image
+// //   objectFit: 'cover',  // Ensures image covers the rounded area without distortion
 // });
 
 // const AboutContainer = styled(Container)({
@@ -108,6 +52,8 @@
 
 // const ImageSection = styled(Box)({
 //   flex: 1,
+//   display: 'flex',
+//   justifyContent: 'center',  // Center the image horizontally
 // });
 
 // export default function About() {
@@ -140,14 +86,13 @@
 //           </SectionContent>
 //         </TextSection>
 //         <ImageSection>
-//           <Paper elevation={3} sx={{ padding: 0 }}>
+
+         
 //             <DeveloperImage
 //               src="https://res.cloudinary.com/dfi2vbznv/image/upload/v1723732226/C360_20240623-203418-53_w8950a.jpg"
 //               alt="Developer Image"
-//               width={100}
-//               height={200}
 //             />
-//           </Paper>
+         
 //         </ImageSection>
 //       </DeveloperSection>
 
@@ -182,23 +127,20 @@
 
 
 
+"use client";
 
-
-// pages/about.js
 import React from 'react';
 import { Container, Typography, Box, Grid, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import 'animate.css'; // Import animate.css
 
 // Styled components
 const DeveloperImage = styled('img')({
   width: '100%',
   maxWidth: '500px',  // Medium size image
-//   height: 'auto',
-  height: "500px",
-
-borderRadius: '',
-    // Rounded image
-//   objectFit: 'cover',  // Ensures image covers the rounded area without distortion
+  height: '500px',
+  borderRadius: '10px', // Added rounded corners
+  objectFit: 'cover',  // Ensures image covers the rounded area without distortion
 });
 
 const AboutContainer = styled(Container)({
@@ -238,7 +180,7 @@ export default function About() {
   return (
     <AboutContainer>
       {/* Developer Section */}
-      <DeveloperSection>
+      <DeveloperSection className="animate__animated animate__fadeIn">
         <TextSection>
           <SectionTitle variant="h4">About the Developer</SectionTitle>
           <SectionContent variant="body1">
@@ -264,19 +206,17 @@ export default function About() {
           </SectionContent>
         </TextSection>
         <ImageSection>
-
-         
-            <DeveloperImage
-              src="https://res.cloudinary.com/dfi2vbznv/image/upload/v1723732226/C360_20240623-203418-53_w8950a.jpg"
-              alt="Developer Image"
-            />
-         
+          <DeveloperImage
+            src="https://res.cloudinary.com/dfi2vbznv/image/upload/v1723732226/C360_20240623-203418-53_w8950a.jpg"
+            alt="Developer Image"
+            className="animate__animated animate__zoomIn"
+          />
         </ImageSection>
       </DeveloperSection>
 
       {/* App and Technology Details */}
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className="animate__animated animate__fadeIn animate__delay-1s">
           <SectionTitle variant="h4">About Our App</SectionTitle>
           <SectionContent variant="body1">
             Welcome to our app, where you can find mobile phones at unbeatable prices! Our platform is designed to help you discover the best deals on mobile phones with exclusive offers and discounts. Whether you're looking for budget-friendly options or premium models, we've got you covered. Our mission is to make mobile phone shopping easier and more affordable for everyone.
@@ -295,8 +235,8 @@ export default function About() {
             </ul>
           </SectionContent>
         </Grid>
-        <Grid item xs={12} md={6}>
-          
+        <Grid item xs={12} md={6} className="animate__animated animate__fadeIn animate__delay-2s">
+          {/* Additional content or image can go here */}
         </Grid>
       </Grid>
     </AboutContainer>

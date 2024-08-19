@@ -118,9 +118,9 @@ export default function MyAccount() {
   return (
     <>
     <ToastContainer />
-      <Container>
+      <Container className="animate__animated animate__fadeIn">
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 4 }}>
-          <ProfilePicture src={user.profilePicture || '/default-avatar.png'} alt="Profile Picture" />
+          <ProfilePicture src={user.profilePicture || '/default-avatar.png'} alt="Profile Picture"    className="animate__animated animate__zoomIn" />
           <Typography variant="h4" gutterBottom>
             {user.firstName} {user.lastName}
           </Typography>
@@ -128,12 +128,12 @@ export default function MyAccount() {
           <UserDetails>Phone: {user.phone || 'N/A'}</UserDetails>
           <Grid container spacing={2} mt={2}>
             <Grid item xs={12} sm={6}>
-              <Button fullWidth variant="contained" color="primary" onClick={handleOpen}>
+              <Button fullWidth variant="contained" color="primary"  className="animate__animated animate__fadeIn" onClick={handleOpen}>
                 Logout
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Button fullWidth variant="outlined" color="secondary" onClick={() => handleEdit(user)}>
+              <Button fullWidth variant="outlined" color="secondary" onClick={() => handleEdit(user)}  className="animate__animated animate__fadeIn">
                 Edit Profile
               </Button>
             </Grid>
@@ -146,6 +146,7 @@ export default function MyAccount() {
         onClose={handleClose}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
+         className="animate__animated animate__zoomIn"
       >
         <Box sx={style}>
           <Typography id="modal-title" variant="h6" component="h2">
@@ -168,7 +169,7 @@ export default function MyAccount() {
 
 
 
-      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)} className="animate__animated animate__zoomIn">
         <DialogTitle>Edit Your Details</DialogTitle>
         <DialogContent>
           <DialogContentText>Edit the details of the Account below.</DialogContentText>

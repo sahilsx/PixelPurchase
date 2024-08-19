@@ -335,7 +335,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { useRouter } from 'next/navigation';
-
+import 'animate.css';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -517,6 +517,7 @@ export default function Navbar() {
       }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      className="animate__animated animate__fadeIn" 
     >
       {isAuthenticated ? (
         <>
@@ -548,6 +549,7 @@ export default function Navbar() {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      className="animate__animated animate__fadeIn" 
     >
       <MenuItem>
         <IconButton size="large" aria-label="show new mails" color="inherit">
@@ -582,7 +584,7 @@ export default function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#003366', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+      <AppBar color="primary" className="animate__animated animate__fadeIn" position="static" sx={{ backgroundColor: '#003366', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -661,6 +663,7 @@ export default function Navbar() {
         onClose={handleDialogClose}
         aria-labelledby="responsive-dialog-title"
         color='white'
+         className="animate__animated animate__fadeIn"
         backgroundColor="white"
       >
         <StyledDialogTitle id="responsive-dialog-title">Menu</StyledDialogTitle>

@@ -209,11 +209,11 @@ const handleShipSubmit = async (e) => {
       
 
       <Box my={4}>
-        <Typography padding={5} backgroundColor="gray" color="white" variant="h4" align="center">Explore a variety of products that suits you choice.........</Typography>
+        <Typography className="animate__animated animate__headShake animate__infinite animate__delay-5s " padding={5} backgroundColor="gray" color="white" variant="h4" align="center">Explore a variety of products that suits you choice.........</Typography>
         <Grid container spacing={4} style={{ marginTop: 20 }}>
           {data.map((offer) => (
             <Grid item xs={12} sm={6} md={4} key={offer._id}>
-              <ProductCard>
+              <ProductCard className="animate__animated animate__fadeIn animate__delay-1s">
                 <ProductImage
                   component="img"
                   image={offer.imageUrl}
@@ -226,6 +226,7 @@ const handleShipSubmit = async (e) => {
                     variant="contained"
                     color="primary"
                     onClick={() => handleOpens(offer)}
+                     className="animate__animated animate__pulse"
                   >
                     View Details
                   </Button>
@@ -260,12 +261,12 @@ const handleShipSubmit = async (e) => {
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+           className="animate__animated animate__zoomIn "
         >
           <Box sx={style}>
             <Typography variant="h5" textAlign={"center"}>
               Buy Product
             </Typography>
-            |
             <form onSubmit={handleShipSubmit}>
               <TextField
                 margin="normal"
@@ -369,7 +370,7 @@ const handleShipSubmit = async (e) => {
 
 
 
-        <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth>
+        <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth className="animate__animated animate__fadeIn animate__slower">
     <DialogTitle>{selectedProduct.title}</DialogTitle>
     <DialogContent>
       <Box display="flex" flexDirection="row">
@@ -386,7 +387,7 @@ const handleShipSubmit = async (e) => {
       </Box>
     </DialogContent>
     <DialogActions>
-    <Button variant="contained" onClick={() => handleBuy(selectedProduct)} color="primary">
+    <Button variant="contained" onClick={() => handleBuy(selectedProduct)} color="primary" className="animate__animated animate__pulse">
         Proceed To Buy
       </Button>
       <Button variant="contained" onClick={handleCloses} color="primary">

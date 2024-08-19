@@ -175,7 +175,7 @@ const Store = () => {
     getRows();
   }, []);
   if (!data) return  <Container> <Typography variant="h6" gutterBottom>
-  Search Results for "Products below 30000"
+  Search Results for "Products below 40000"
 </Typography>
 <Typography marginTop={20} variant="h6" align="center">"no products found"</Typography>;</Container> 
   return (
@@ -185,7 +185,7 @@ const Store = () => {
 <ToastContainer />
       <Container>
       <Typography variant="h6" gutterBottom>
-        Search Results for "Products below 10000"
+        Search Results for "Products below 40000"
       </Typography>
 
       <Box my={4}>
@@ -267,7 +267,6 @@ const Store = () => {
      <Typography variant="h5" textAlign={"center"}>
        Buy Product
      </Typography>
-     |
      <form onSubmit={handleShipSubmit}>
        <TextField
          margin="normal"

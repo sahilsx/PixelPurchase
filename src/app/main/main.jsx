@@ -16,7 +16,7 @@ import { styled } from '@mui/material/styles';
 import { ToastContainer, toast } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
 // import { useRouter } from 'next/router';
-
+import 'animate.css';
 // Define some dummy product data
 
 
@@ -245,7 +245,7 @@ setOpen(false);
    
     <Container marginTop="30">
       {/* Hero Section */}
-      <HeroSection>
+      <HeroSection className="animate__animated animate__fadeIn animate__infinite animate__slower" >
         <Box>
           <Typography variant="h2">Discover Amazing Products</Typography>
           <Typography variant="h6">Find what you need at unbeatable prices</Typography>
@@ -260,7 +260,7 @@ setOpen(false);
     </Typography>
     <Grid container spacing={4} style={{ marginTop: 20 }} >
       <Grid item xs={12} sm={6} md={4}>
-        <CategoryCard sx={cardstyle}>
+        <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
              image="https://th.bing.com/th/id/R.58d492e2f26df7e9a2fe246f3d363bcd?rik=lEE3WSbO7gG2wg&riu=http%3a%2f%2ftechbeat.com%2fwp-content%2fuploads%2f2013%2f01%2fSmartphone.jpg&ehk=BATf99yB2LxHH7UUWn9DEZqXzIr073JGrX4o%2bhPNHGM%3d&risl=&pid=ImgRaw&r=0"
@@ -286,7 +286,7 @@ setOpen(false);
         </CategoryCard>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
-      <CategoryCard sx={cardstyle}>
+      <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
             image="https://th.bing.com/th/id/OIP.pU8gpXE0grJ-rtrZ5c_r6wHaE1?w=1200&h=784&rs=1&pid=ImgDetMain"
@@ -313,7 +313,7 @@ setOpen(false);
       </Grid>
     
           <Grid item xs={12} sm={6} md={4}>
-          <CategoryCard sx={cardstyle}>
+          <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
             image="https://th.bing.com/th/id/OIP.vAk69qVGkALQFeKXrvsZQQHaHa?rs=1&pid=ImgDetMain"
@@ -340,7 +340,7 @@ setOpen(false);
            
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-          <CategoryCard sx={cardstyle}>
+          <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
             image="https://th.bing.com/th/id/OIP.p5xLlkQOKxRB1JNUayB2iAHaHa?w=600&h=600&rs=1&pid=ImgDetMain"
@@ -366,7 +366,7 @@ setOpen(false);
         </CategoryCard>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-          <CategoryCard sx={cardstyle}>
+          <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
             image="https://th.bing.com/th/id/OIP.ICKF52VZXd_SIUlGxzwtvAHaE9?rs=1&pid=ImgDetMain"
@@ -392,7 +392,7 @@ setOpen(false);
         </CategoryCard>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-          <CategoryCard sx={cardstyle}>
+          <CategoryCard className="animate__animated animate__bounceIn  animate__slower" sx={cardstyle}>
           <CardMedia
             component="img"
             image="https://i.redd.it/2ab8vwlktjv41.jpg"
@@ -453,7 +453,7 @@ setOpen(false);
       </Box>
 
       {/* Special Offers */}
-      <Box backgroundColor="brown" my={4}>
+      <Box className="animate__animated animate__pulse  animate__slower"  backgroundColor="brown" my={4}>
         <Typography padding={3} backgroundColor="black"  fontWeight={200} color="white" variant="h4" align="center">Special Offers</Typography>
         <Grid  paddingLeft={5} paddingBottom={3} paddingRight={5} container spacing={4} style={{ marginTop: 10 }}>
           <Grid item xs={12} md={6}>
@@ -501,7 +501,7 @@ setOpen(false);
       </Box>
 
       {/* Customer Testimonials */}
-      <Box backgroundColor="white"  my={4}>
+      <Box className="animate__animated animate__swing animate__infinite animate__slower" backgroundColor="white"  my={4}>
         <Typography padding={3} backgroundColor="black" fontWeight={200} color="pink" variant="h4" align="center">Customer Testimonials</Typography>
         <Grid  container spacing={4} style={{ marginTop: 20 }}>
           <Grid  item xs={12} md={6}>
@@ -543,7 +543,8 @@ setOpen(false);
 
 
 
-      <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth>
+      <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth    className="animate__animated animate__fadeIn  animate__slower"
+        >
     <DialogTitle>{selectedProduct.title}</DialogTitle>
     <DialogContent>
       <Box display="flex" flexDirection="row">
@@ -582,7 +583,6 @@ setOpen(false);
             <Typography variant="h5" textAlign={"center"}>
               Buy Product
             </Typography>
-            |
             <form onSubmit={handleShipSubmit}>
               <TextField
                 margin="normal"
