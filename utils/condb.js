@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // const url ="mongodb://localhost:27017/prapp"
-const url ="mongodb+srv://itxsaaho:herewego12@cluster0.yiw5j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const url ="mongodb+srv://sahilsahil0901:sahiluuu@cluster0.dgd61.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 
 
