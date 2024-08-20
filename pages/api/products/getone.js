@@ -2,7 +2,7 @@ import Product from "../../../models/product";
 import connection from "../../../utils/condb";
 import messageHandler from "../../../utils/feature";
 import { createRouter } from "next-connect";
-import isAuthenticated from "../../utils/auth";
+
 const apiRoute = createRouter({
   onError(error, req, res) {
     console.error(error);
