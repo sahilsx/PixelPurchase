@@ -48,43 +48,77 @@ const AdminDashboard = () => {
     };
   };
 
+  // async function handleSubmit(e) {
+  //   try {
+  //     setLoading(true);
+  //     e.preventDefault();
+
+  //     const formData = new FormData();
+  //     formData.append("title", title);
+  //     formData.append("description", description);
+  //     formData.append("prize", prize);
+  //     formData.append("image", image);
+  //     console.log("formss",formData)
+
+  //     const res = await fetch("/api/products/Product", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     const data = await res.json();
+  //     console.log("data", data);
+
+  //     if (data.message === "Product saved Successfully") {
+  //       toast("Product saved Successfully");
+  //       setTitle("");
+  //       setDesciption("");
+  //       setPrice("");
+  //       setImage(null);
+  //     } else {
+  //       toast.error(data.message);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Some Error, Kindly Try again");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
   async function handleSubmit(e) {
     try {
-      setLoading(true);
       e.preventDefault();
-
+      setLoading(true);
+  
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
       formData.append("prize", prize);
-      formData.append("image", image);
-      console.log("formss",formData)
-
+      formData.append("image", image); // Assuming `image` is a file object from an input
+  
       const res = await fetch("/api/products/Product", {
-        
+        method: "POST",
         body: formData,
       });
-
+  
       const data = await res.json();
-      console.log("data", data);
-
-      if (data.message === "Product saved Successfully") {
-        toast("Product saved Successfully");
+  
+      if (data.message === "Product saved successfully") {
+        toast("Product saved successfully");
         setTitle("");
-        setDesciption("");
-        setPrice("");
+        setDescription("");
+        setPrize("");
         setImage(null);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Some Error, Kindly Try again");
+      toast.error("Some error occurred, please try again");
     } finally {
       setLoading(false);
     }
   }
-
+  
   return (
     <>
       <IsaAuthenticated />
