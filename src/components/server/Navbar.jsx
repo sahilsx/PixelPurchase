@@ -609,7 +609,7 @@ export default function Navbar() {
           </Typography>
           <Search>
             <SearchIconWrapper>
-              <SearchIcon sx={{ color: '#fff' }} />
+              <SearchIcon onClick={handleSearch} sx={{ color: '#fff' }} />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"

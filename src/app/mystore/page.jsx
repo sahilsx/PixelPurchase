@@ -174,10 +174,7 @@ const handleShipSubmit = async (e) => {
       body: JSON.stringify({ Userid,Name, Email, Mobile, Address, Product, Price }),
     });
     const result = await response.json();
-      setName("");
-      setEmail("");
-      setAddress("");
-      setMobile("");
+     
      
     if (result.message === "Order Confirmed Successfully!") {
       toast("Order Confirmed Successfully!");

@@ -61,7 +61,7 @@ const AdminDashboard = () => {
       console.log("formss",formData)
 
       const res = await fetch("/api/products/Product", {
-        method: "POST",
+        
         body: formData,
       });
 
