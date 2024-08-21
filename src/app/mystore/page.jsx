@@ -17,7 +17,7 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
 import { styled } from '@mui/material/styles';
-import { useRouter } from "next/navigation";
+
 import IsAuthenticated from "../user/Auth/page";
 
 
@@ -153,13 +153,18 @@ const handleBuy = (product) => {
 
 
 const handleShipSubmit = async (e) => {
-  const user= await sessionStorage.getItem("user");
-  if(user){
-    setUserid(user)
-
-  }
   e.preventDefault();
   setLoading(true);
+
+  // Use useEffect or similar method to get sessionStorage only on the client side
+  let userId;
+  if (typeof window !== 'undefined') {
+    userId = sessionStorage.getItem("user");
+  }
+
+  if (userId) {
+    setUserid(userId);
+  }
   try {
     const response = await fetch('/api/order/ship', {
       method: 'POST',
