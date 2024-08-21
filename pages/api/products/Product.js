@@ -85,27 +85,27 @@ import { createRouter } from "next-connect";
 import Product from "../../../models/product";
 
 // Configure multer for file uploads
-const upload = multer({ dest: 'uploads/', limits: { fileSize: 1024 * 1024 * 10 } });
+// const upload = multer({ dest: 'uploads/', limits: { fileSize: 1024 * 1024 * 10 } });
 
-// Disable default body parser for file uploads
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// // Disable default body parser for file uploads
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
-const apiRoute = createRouter({
-  onError(error, req, res) {
-    console.error(error);
-    res.status(500).json({ error: `Something went wrong! ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(404).json({ error: "Not Found" }); 
-  },
-});
+// const apiRoute = createRouter({
+//   onError(error, req, res) {
+//     console.error(error);
+//     res.status(500).json({ error: `Something went wrong! ${error.message}` });
+//   },
+//   onNoMatch(req, res) {
+//     res.status(404).json({ error: "Not Found" }); 
+//   },
+// });
 
-// Use multer middleware for handling file uploads
-apiRoute.use(upload.single("image"));
+// // Use multer middleware for handling file uploads
+// // apiRoute.use(upload.single("image"));
 
 apiRoute.post(async (req, res) => {
   try {
