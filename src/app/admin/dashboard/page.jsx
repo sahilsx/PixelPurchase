@@ -60,7 +60,7 @@ const AdminDashboard = () => {
       formData.append("image", image);
       console.log("formss",formData)
 
-      const res = await fetch("/api/Products/Product", {
+      const res = await fetch("/api/products/Product", {
         method: "POST",
         body: formData,
       });

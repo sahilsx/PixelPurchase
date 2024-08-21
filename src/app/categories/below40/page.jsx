@@ -156,7 +156,7 @@ const Store = () => {
 
   const getRows = async () => {
     try {
-      const res = await fetch("/api/Products/getall4", {
+      const res = await fetch("/api/products/getall4", {
         method: "GET",
       });
       const data = await res.json();

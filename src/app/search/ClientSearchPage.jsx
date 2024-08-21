@@ -641,7 +641,7 @@ const ClientSearchPage = () => {
   useEffect(() => {
     if (query) {
       // Fetch search results from your API
-      fetch(`/api/Products/search?query=${query}`)
+      fetch(`/api/products/search?query=${query}`)
         .then(response => {
           if (!response.ok) {
             throw new Error('Network response was not ok');

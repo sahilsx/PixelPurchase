@@ -156,7 +156,7 @@ const Store = () => {
 
   const getRows = async () => {
     try {
-      const res = await fetch("/api/Products/getall2", {
+      const res = await fetch("/api/products/getall2", {
         method: "GET",
       });
       const data = await res.json();
@@ -267,7 +267,6 @@ const Store = () => {
      <Typography variant="h5" textAlign={"center"}>
        Buy Product
      </Typography>
-     |
      <form onSubmit={handleShipSubmit}>
        <TextField
          margin="normal"
