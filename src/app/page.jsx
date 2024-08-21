@@ -127,8 +127,7 @@ const Home = () => {
 
   const [data, setData] = React.useState([]);
  
-  
-  
+ 
 
   return (
     <>
@@ -156,79 +155,7 @@ const Home = () => {
         </Box>
         
       </Container>
-      <Modal open={open} onClose={handleClose}>
-        <Box className="animate__animated animate__zoomIn animate__slower" sx={modalStyle}>
-          <Typography variant="h5" textAlign="center" mb={2}>
-            Purchase Confirmation
-          </Typography>
-          <form onSubmit={handleShipSubmit}>
-            <TextField
-              margin="normal"
-              label="Name"
-              variant="filled"
-              fullWidth
-              value={Name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <TextField
-              margin="normal"
-              label="Email"
-              variant="filled"
-              fullWidth
-              value={Email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <TextField
-              margin="normal"
-              label="Address"
-              variant="filled"
-              fullWidth
-              value={Address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-            <TextField
-              margin="normal"
-              label="Mobile No."
-              variant="filled"
-              type="tel"
-              fullWidth
-              value={Mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              required
-            />
-            <TextField
-              margin="normal"
-              label="Product"
-              variant="filled"
-              fullWidth
-              value={Product}
-              InputProps={{ readOnly: true }}
-            />
-            <TextField
-              margin="normal"
-              label="Product Price"
-              variant="filled"
-              type="number"
-              fullWidth
-              value={Price}
-              InputProps={{ readOnly: true }}
-            />
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              fullWidth
-              sx={{ mt: 3 }}
-              disabled={loading}
-            >
-              {loading ? <CircularProgress size={24} /> : "Confirm Purchase"}
-            </Button>
-          </form>
-        </Box>
-      </Modal>
+     
       <br></br>
      <Main/>
     </>
