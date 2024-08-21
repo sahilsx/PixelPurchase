@@ -120,9 +120,7 @@ const [open, setOpen] = React.useState(false);
   const getRows = async () => {
     try {
 
-      const res = await fetch("/api/Products/getall"
-        
-      );
+      const res = await fetch("/api/products/getall");
       const data = await res.json();
       setData(data.product);
     } catch (error) {
