@@ -127,67 +127,8 @@ const Home = () => {
 
   const [data, setData] = React.useState([]);
  
-  const getRows = async () => {
-    try {
-
-      const res = await fetch("/api/Products/getall", {
-        method: "GET",
-      });
-      const data = await res.json();
-      setData(data.product);
-    } catch (error) {
-      toast.error("Server Error");
-    }
-  };
-
-  React.useEffect(() => {
-    getRows();
-  }, []);
-
-  const handleClose = () => setOpen(false);
-
-  const handleBuy = (product) => {
-    setSelectedProduct(product);
-    setOpen(true);
-    setProduct(product.title);
-    setPrice(product.prize);
-  };
-
-  const handleShipSubmit = async (e) => {
-    const user= await sessionStorage.getItem("user");
-    if(user){
-      setUserid(user)
   
-    }
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await fetch('/api/order/ship', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ Userid,Name, Email, Mobile, Address, Product, Price }),
-      });
-      const result = await response.json();
-      if (result.message === "Order Confirmed Successfully!") {
-        toast.success("Order Confirmed Successfully!");
-        setName("");
-        setEmail("");
-        setAddress("");
-        setMobile("");
-        setProduct("");
-        setPrice("");
-        setOpen(false);
-      } else {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      toast.error("Error confirming order.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
   return (
     <>

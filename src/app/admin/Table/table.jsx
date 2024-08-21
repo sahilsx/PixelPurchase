@@ -404,7 +404,7 @@ export default function CustomPaginationActionsTable() {
   const fetchRows = async (page = 0, rowsPerPage = 10) => {
     try {
       const res = await fetch(
-        `/api/Products/getall?page=${page}&limit=${rowsPerPage}`,
+        `/api/products/getall?page=${page}&limit=${rowsPerPage}`,
         {
           method: "GET",
         }
@@ -467,7 +467,7 @@ export default function CustomPaginationActionsTable() {
   
       if (imageFile) {
         formDatas.append("image", imageFile); 
-        const response = await fetch("/api/Products/edits", {
+        const response = await fetch("/api/products/edits", {
           method: "PUT",
           // headers: {
           //   "Content-Type": "application/json",
@@ -482,7 +482,7 @@ export default function CustomPaginationActionsTable() {
         // Append image file if present
       }
   
-      const response = await fetch("/api/Products/edits", {
+      const response = await fetch("/api/products/edits", {
         method: "PUT",
         // headers: {
         //   "Content-Type": "application/json",
@@ -519,7 +519,7 @@ export default function CustomPaginationActionsTable() {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch("/api/Products/DeleteId", {
+      const res = await fetch("/api/products/DeleteId", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
