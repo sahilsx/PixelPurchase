@@ -94,15 +94,15 @@ import Product from "../../../models/product";
 //   },
 // };
 
-// const apiRoute = createRouter({
-//   onError(error, req, res) {
-//     console.error(error);
-//     res.status(500).json({ error: `Something went wrong! ${error.message}` });
-//   },
-//   onNoMatch(req, res) {
-//     res.status(404).json({ error: "Not Found" }); 
-//   },
-// });
+const apiRoute = createRouter({
+  onError(error, req, res) {
+    console.error(error);
+    res.status(500).json({ error: `Something went wrong! ${error.message}` });
+  },
+  onNoMatch(req, res) {
+    res.status(404).json({ error: "Not Found" }); 
+  },
+});
 
 // // Use multer middleware for handling file uploads
 // // apiRoute.use(upload.single("image"));
