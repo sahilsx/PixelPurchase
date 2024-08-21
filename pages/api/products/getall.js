@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     if (product) {
       res.status(200).json({ message: "Products fetched Succesfully", product });
     } else {
-      messageHandler(res, 400, "Some Error");
+      messageHandler(res, 400, "under deployment");
     }
   } catch (error) {
     console.log(error);
