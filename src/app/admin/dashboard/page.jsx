@@ -435,7 +435,7 @@ const AdminDashboard = () => {
                     Upload Image
                   </Button>
                 </label>
-                {image && <img src={URL.createObjectURL(image)} alt="Selected" width={100} />}
+                {/* {image && <img src={URL.createObjectURL(image)} alt="Selected" width={100} />} */}
               </Box>
 
               <Button
