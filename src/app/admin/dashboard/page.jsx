@@ -767,7 +767,7 @@ const AdminDashboard = () => {
         setPrize("");
         setImage(null);
       } else {
-        toast.error(data.error || "Something went wrong");
+        toast.error(data.error);
       }
     } catch (error) {
       console.error("Error:", error);
