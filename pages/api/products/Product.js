@@ -292,7 +292,7 @@ apiRoute.post(async (req, res) => {
   console.log("Request Method:", req.method); // Log request method
   console.log("Request URL:", req.url); // Log request URL
   console.log("Request Body:", req.body); // Log request body
-  console.log("Uploaded File:", req.file); // Log the uploaded file
+ await  console.log("Uploaded File:", req.file); // Log the uploaded file
 
   try {
     connection();
@@ -302,27 +302,27 @@ apiRoute.post(async (req, res) => {
       return messageHandler(res, 400, "All details of product required");
     }
 
-    if (!req.file) {
-      return messageHandler(res, 400, "Image is required");
-    }
+    // if (!req.file) {
+    //   return messageHandler(res, 400, "Image is required");
+    // }
 
     // Upload image to Cloudinary
-    const uploadImg = await cloudinary.uploader.upload(req.file.path, {
-      folder: "ecommerce",
-    });
+    // const uploadImg = await cloudinary.uploader.upload(req.file.path, {
+    //   folder: "ecommerce",
+    // });
 
-    if (!uploadImg) {
-      return messageHandler(res, 400, "Cloudinary Error");
-    }
+    // if (!uploadImg) {
+    //   return messageHandler(res, 400, "Cloudinary Error");
+    // }
 
-    const imageUrl = uploadImg.secure_url;
+    // const imageUrl = uploadImg.secure_url;
 
     // Create a new product
     const product = await Product.create({
       title,
       description,
       prize,
-      imageUrl,
+      // imageUrl,
     });
 
     if (product) {
