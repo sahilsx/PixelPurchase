@@ -330,7 +330,7 @@ apiRoute.post(async (req, res) => {
     }
   } catch (error) {
     console.log("Error:", error);
-    return messageHandler(res, 500, "Server Error");
+    return messageHandler(res, 500, error,"Server Error");
   }
 });
 
