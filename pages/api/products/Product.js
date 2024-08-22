@@ -9,11 +9,11 @@ import Product from "../../../models/product";
 // const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
 
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 
 const apiRoute = createRouter({
