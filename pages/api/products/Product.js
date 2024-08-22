@@ -341,6 +341,87 @@
 
 
 
+// import { createRouter } from 'next-connect';
+// import multer from 'multer';
+// import cloudinary from '../../../utils/cloud';
+// import connection from '../../../utils/condb';
+// import Product from '../../../models/product';
+// import messageHandler from '../../../utils/feature';
+
+// // Configure multer for file uploads
+// const upload = multer({ dest: 'uploads/', limits: { fileSize: 10 * 1024 * 1024 } });
+
+// // Disable default body parser for file uploads
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
+
+// const apiRoute = createRouter({
+//   onError(error, req, res) {
+//     console.error(error);
+//     res.status(500).json({ error: `Something went wrong! ${error.message}` });
+//   },
+//   onNoMatch(req, res) {
+//     res.status(404).json({ error: 'Not Found' });
+//   },
+// });
+
+// // Use multer middleware for handling file uploads
+// apiRoute.use(upload.single('image'));
+
+// apiRoute.post(async (req, res) => {
+//   try {
+//     connection();
+
+//     const { title, description, prize } = req.body;
+//     const image = req.file;
+
+//     if (!title || !description || !prize) {
+//       return messageHandler(res, 400, 'All details of product are required');
+//     }
+
+//     if (!image) {
+//       return messageHandler(res, 400, 'Image is required');
+//     }
+
+//     // Upload image to Cloudinary
+//     const uploadImg = await cloudinary.uploader.upload(image.path, {
+//       folder: 'ecommerce',
+//     });
+
+//     if (!uploadImg) {
+//       return messageHandler(res, 400, 'Cloudinary upload error');
+//     }
+
+//     const imageUrl = uploadImg.secure_url;
+
+//     // Create a new product
+//     const product = await Product.create({
+//       title,
+//       description,
+//       prize,
+//       imageUrl,
+//     });
+
+//     if (product) {
+//       return messageHandler(res, 201, 'Product saved successfully');
+//     } else {
+//       return messageHandler(res, 500, 'Failed to save product');
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     return messageHandler(res, 500, 'Server error');
+//   }
+// });
+
+// export default apiRoute.handler();
+
+
+
+
+
 import { createRouter } from 'next-connect';
 import multer from 'multer';
 import cloudinary from '../../../utils/cloud';
@@ -360,7 +441,7 @@ export const config = {
 
 const apiRoute = createRouter({
   onError(error, req, res) {
-    console.error(error);
+    console.error('API Route Error:', error);
     res.status(500).json({ error: `Something went wrong! ${error.message}` });
   },
   onNoMatch(req, res) {
@@ -373,7 +454,7 @@ apiRoute.use(upload.single('image'));
 
 apiRoute.post(async (req, res) => {
   try {
-    connection();
+    connection(); // Ensure your database connection is handled properly
 
     const { title, description, prize } = req.body;
     const image = req.file;
@@ -382,9 +463,9 @@ apiRoute.post(async (req, res) => {
       return messageHandler(res, 400, 'All details of product are required');
     }
 
-    // if (!image) {
-    //   return messageHandler(res, 400, 'Image is required');
-    // }
+    if (!image) {
+      return messageHandler(res, 400, 'Image is required');
+    }
 
     // Upload image to Cloudinary
     const uploadImg = await cloudinary.uploader.upload(image.path, {
@@ -411,9 +492,13 @@ apiRoute.post(async (req, res) => {
       return messageHandler(res, 500, 'Failed to save product');
     }
   } catch (error) {
-    console.log(error);
+    console.error('Error handling POST request:', error);
     return messageHandler(res, 500, 'Server error');
   }
+});
+
+apiRoute.all((req, res) => {
+  res.status(405).json({ error: 'Method Not Allowed' });
 });
 
 export default apiRoute.handler();
