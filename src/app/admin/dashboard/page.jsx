@@ -273,6 +273,221 @@
 
 
 
+// "use client";
+
+// import React from "react";
+// import {
+//   Box,
+//   Button,
+//   Container,
+//   Modal,
+//   TextField,
+//   Typography,
+//   Card,
+//   CardContent
+// } from "@mui/material";
+// import { toast, ToastContainer } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
+// import DataTable from "../Table/table";
+// import ShipTable from "../shiptable/tabii";
+// import UserTable from "../getusers/usertable";
+// import { Add as AddIcon } from "@mui/icons-material";
+
+// const AdminDashboard = () => {
+//   const [open, setOpen] = React.useState(false);
+//   const [loading, setLoading] = React.useState(false);
+//   const [title, setTitle] = React.useState("");
+//   const [description, setDescription] = React.useState("");
+//   const [prize, setPrize] = React.useState("");
+//   const [image, setImage] = React.useState(null);
+
+//   const handleOpen = () => setOpen(true);
+//   const handleClose = () => setOpen(false);
+
+//   const handleImageChange = (e) => {
+//     setImage(e.target.files[0]); // Store the file object directly
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+
+//     const formData = new FormData();
+//     formData.append("title", title);
+//     formData.append("description", description);
+//     formData.append("prize", prize);
+//     if (image) {
+//       formData.append("image", image); // Append the file object
+//     }
+
+//     try {
+//       const res = await fetch("/api/products/Product", {
+//         method: "POST",
+//         body: formData,
+//       });
+
+//       const data = await res.json();
+//       if (res.ok) {
+//         toast.success("Product saved successfully");
+//         setTitle("");
+//         setDescription("");
+//         setPrize("");
+//         setImage(null);
+//       } else {
+//         toast.error(data.error || "Something went wrong");
+//       }
+//     } catch (error) {
+//       console.error("Error:", error);
+//       toast.error("Some error occurred, please try again");
+//     } finally {
+//       setLoading(false);
+//       handleClose(); // Close modal after submission
+//     }
+//   };
+
+//   return (
+//     <>
+//       <ToastContainer />
+//       <Container maxWidth="lg" sx={{ marginTop: 4, marginBottom: 4 }}>
+//         <Typography variant="h3" align="center" gutterBottom>
+//           Admin Dashboard
+//         </Typography>
+
+//         <Box display="flex" justifyContent="center" mb={4}>
+//           <Button
+//             variant="contained"
+//             color="primary"
+//             startIcon={<AddIcon />}
+//             onClick={handleOpen}
+//             sx={{ boxShadow: 3 }}
+//           >
+//             Add Product
+//           </Button>
+//         </Box>
+
+//         <Modal
+//           open={open}
+//           onClose={handleClose}
+//           aria-labelledby="modal-modal-title"
+//           aria-describedby="modal-modal-description"
+//         >
+//           <Box
+//             sx={{
+//               margin: "30px auto",
+//               width: { xs: '90%', sm: 500 }, // Responsive width
+//               borderRadius: 2,
+//               boxShadow: 10,
+//               backgroundColor: "white",
+//               padding: 4, // Added padding inside the modal for better spacing
+//             }}
+//           >
+//             <Typography variant="h5" textAlign="center" mb={3}>
+//               Add Product
+//             </Typography>
+//             <form onSubmit={handleSubmit}>
+//               <TextField
+//                 margin="normal"
+//                 label="Product Title"
+//                 variant="outlined"
+//                 fullWidth
+//                 value={title}
+//                 onChange={(e) => setTitle(e.target.value)}
+//                 sx={{ mb: 2 }}
+//               />
+
+//               <TextField
+//                 margin="normal"
+//                 label="Product Description"
+//                 variant="outlined"
+//                 fullWidth
+//                 multiline
+//                 rows={4}
+//                 value={description}
+//                 onChange={(e) => setDescription(e.target.value)}
+//                 sx={{ mb: 2 }}
+//               />
+
+//               <TextField
+//                 margin="normal"
+//                 label="Product Price"
+//                 variant="outlined"
+//                 fullWidth
+//                 type="number"
+//                 value={prize}
+//                 onChange={(e) => setPrize(e.target.value)}
+//                 sx={{ mb: 2 }}
+//               />
+//               <Box mb={2}>
+//                 <input
+//                   accept="image/*"
+//                   id="image-upload"
+//                   type="file"
+//                   onChange={handleImageChange}
+//                   style={{ display: 'none' }}
+//                 />
+//                 <label htmlFor="image-upload">
+//                   <Button
+//                     variant="contained"
+//                     component="span"
+//                     color="secondary"
+//                     sx={{ width: '100%' }}
+//                   >
+//                     Upload Image
+//                   </Button>
+//                 </label>
+//                 {/* {image && <img src={URL.createObjectURL(image)} alt="Selected" width={100} />} */}
+//               </Box>
+
+//               <Button
+//                 variant="contained"
+//                 color="primary"
+//                 type="submit"
+//                 fullWidth
+//                 sx={{ mt: 2 }}
+//                 disabled={loading}
+//               >
+//                 {loading ? "Adding..." : "Add Product"}
+//               </Button>
+//             </form>
+//           </Box>
+//         </Modal>
+
+//         <Typography variant="h4" align="center" marginBottom={3}>
+//           Product List
+//         </Typography>
+//         <Card sx={{ mb: 3 }}>
+//           <CardContent>
+//             <DataTable />
+//           </CardContent>
+//         </Card>
+
+//         <Typography variant="h4" align="center" marginTop={5} marginBottom={3}>
+//           Order List
+//         </Typography>
+//         <Card>
+//           <CardContent>
+//             <ShipTable />
+//           </CardContent>
+//         </Card>
+
+//         <Typography variant="h4" align="center" marginTop={5} marginBottom={3}>
+//           User List
+//         </Typography>
+//         <Card>
+//           <CardContent>
+//             <UserTable />
+//           </CardContent>
+//         </Card>
+//       </Container>
+//     </>
+//   );
+// };
+
+// export default AdminDashboard;
+
+
+
+
 "use client";
 
 import React from "react";
@@ -317,7 +532,7 @@ const AdminDashboard = () => {
     formData.append("description", description);
     formData.append("prize", prize);
     if (image) {
-      formData.append("image", image); // Append the file object
+      formData.append("image", image); // Append the file object directly
     }
 
     try {
@@ -435,7 +650,7 @@ const AdminDashboard = () => {
                     Upload Image
                   </Button>
                 </label>
-                {/* {image && <img src={URL.createObjectURL(image)} alt="Selected" width={100} />} */}
+                {image && <img src={URL.createObjectURL(image)} alt="Selected" width={100} />}
               </Box>
 
               <Button
@@ -484,4 +699,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
