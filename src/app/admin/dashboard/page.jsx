@@ -732,42 +732,59 @@ const AdminDashboard = () => {
   const [description, setDescription] = React.useState("");
   const [prize, setPrize] = React.useState("");
   const [image, setImage] = React.useState(null);
+  const [formData, setFormData] = React.useState({
+   title: '',
+  description: '',
+    prize: ''
+});
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({
+      ...formData,
+      [name]:value
+  });
+};
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]); // Store the file object directly
-  };
-
-
-
   // const handleImageChange = (e) => {
-  //       const file = e.target.files?.[0]; // incoming selected file ....first one
-  //       const reader = new FileReader(); // creating an instance of file reader
-  //       reader.readAsDataURL(file);
-  //       reader.onload = () => {
-  //         if (reader.readyState === 2) {
-  //           setImage(reader.result);
-  //         }
-  //       };
-  //     };
+  //   setImage(e.target.files[0]); // Store the file object directly
+  // };
+
+
+
+  const handleImageChange = (e) => {
+        const file = e.target.files?.[0]; // incoming selected file ....first one
+        const reader = new FileReader(); // creating an instance of file reader
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          if (reader.readyState === 2) {
+            setImage(reader.result);
+          }
+        };
+      };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("prize", prize);
-    
-      formData.append("image", image); // Append the file object directly
-    
+    // const formData = new FormData();
+    // formData.append("title",title);
+    // formData.append("description",description);
+    // formData.append("prize",prize);
+    // formData.append("image",image); // Append the file object directly
+    const finalFormData = {
+      ...formData,
+      image
+  };
 
     try {
       const res = await fetch("/api/products/Product", {
-        method: "POST",
-        body: formData,
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(finalFormData)
       });
 
       const data = await res.json();
@@ -779,7 +796,7 @@ const AdminDashboard = () => {
         setPrize("");
         setImage(null);
       } else {
-        toast.error(data.error,"something went wrong");
+        toast.error(data.error ||"something went wrong");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -832,39 +849,42 @@ const AdminDashboard = () => {
             <form onSubmit={handleSubmit}>
               <TextField
                 margin="normal"
+                name="title"
                 label="Product Title"
                 variant="outlined"
                 fullWidth
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={formData.title}
+                onChange={handleChange}
                 sx={{ mb: 2 }}
               />
 
               <TextField
                 margin="normal"
+                name="description"
                 label="Product Description"
                 variant="outlined"
                 fullWidth
                 multiline
                 rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={formData.description}
+                onChange={handleChange}
                 sx={{ mb: 2 }}
               />
 
               <TextField
                 margin="normal"
+                name="prize"
                 label="Product Price"
                 variant="outlined"
                 fullWidth
                 type="number"
-                value={prize}
-                onChange={(e) => setPrize(e.target.value)}
+                value={formData.prize}
+                onChange={handleChange}
                 sx={{ mb: 2 }}
               />
               <Box mb={2}>
                 <input
-                  accept="image/*"
+                 
                   id="image-upload"
                   type="file"
                   onChange={handleImageChange}
