@@ -1,10 +1,10 @@
 import Product from "../../../models/product";
 import connection from "../../../utils/condb";
 import messageHandler from "../../../utils/feature";
-import multer from "multer"
+// import multer from "multer"
 import cloudinary from "../../../utils/cloud";
-import { createRouter } from "next-connect";
-const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
+// import { createRouter } from "next-connect";
+// const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
 
 
 
@@ -13,31 +13,33 @@ const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 
 
 export const config = {
   api: {
-    bodyParser: false,
+      bodyParser: {
+          sizeLimit: "20mb",
+      },
   },
 };
 
 
-const apiRoute = createRouter({
-  onError(error, req, res) {
-    console.error(error);
-    res.status(500).json({ error: `Something went wrong! ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(404).json({ error: "Not Found" }); 
-  },
-});
+// const apiRoute = createRouter({
+//   onError(error, req, res) {
+//     console.error(error);
+//     res.status(500).json({ error: `Something went wrong! ${error.message}` });
+//   },
+//   onNoMatch(req, res) {
+//     res.status(404).json({ error: "Not Found" }); 
+//   },
+// });
 
 
-apiRoute.use(upload.single("image"));
+// apiRoute.use(upload.single("image"));
 
-apiRoute.put(async (req, res) => {
+const handler=async (req, res) => {
   try {
     await connection();
-    const {_id, title, description,prize,image}  = req.body;
-  //  console.log("image",image)
-   console.log("id",_id)
-   if (!image) {
+    const {_id, title, description,prize,image}  = await req.body;
+ 
+   console.log("id",req.body)
+   if(!image){
     const updateBook = await Product.findByIdAndUpdate(_id,{
       title,
       description,
@@ -75,10 +77,10 @@ apiRoute.put(async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-});
+};
 
-export default apiRoute.handler();
-// export default handler;
+export default handler;
+
 
 
 
