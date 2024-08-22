@@ -6,7 +6,7 @@ import { createRouter } from "next-connect";
 import Product from "../../../models/product";
 
 
-const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
+// const upload = multer({ dest: 'uploads/', limits: { fieldSize: 1024 * 1024 * 10 } })
 
 
 export const config = {
@@ -27,37 +27,37 @@ const apiRoute = createRouter({
 });
 
 
-apiRoute.use(upload.single("image"));
+// apiRoute.use(upload.single("image"));
 apiRoute.post(async (req, res) => {
   try {
     connection();
 
-    const { title,  description, prize, image } = req.body;
+    const { title,  description, prize,  } = req.body;
     console.log(req.body)
 
     if (title === "" ||   description === "" || prize === "") {
       return messageHandler(res, 400, "All details of product Required");
     }
 
-    if (!image) {
-      return messageHandler(res, 400, "select image");
-    }
+    // if (!image) {
+    //   return messageHandler(res, 400, "select image");
+    // }
 
-    const uploadImg = await cloudinary.uploader.upload(image, {
-      folder: "ecommerce",
-    });
+    // const uploadImg = await cloudinary.uploader.upload(image, {
+    //   folder: "ecommerce",
+    // });
 
-    if (!uploadImg) {
-      return messageHandler(res, 400, "Cloudinary Error");
-    }
+    // if (!uploadImg) {
+    //   return messageHandler(res, 400, "Cloudinary Error");
+    // }
     
-    const imageUrl = uploadImg.secure_url;
-    console.log("price",prize)
+    // const imageUrl = uploadImg.secure_url;
+    // console.log("price",prize)
     const product = await  Product.create({
       title,
       description,
       prize,
-      imageUrl,
+      // imageUrl,
     });
     console.log(product)
 
