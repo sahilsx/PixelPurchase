@@ -292,20 +292,20 @@ apiRoute.post(async (req, res) => {
   console.log("Request Method:", req.method); // Log request method
   console.log("Request URL:", req.url); // Log request URL
   console.log("Request Body:", req.body); // Log request body
-//  await  console.log("Uploaded File:", req.file); // Log the uploaded file
+   ("Uploaded File:", req.file); 
 
   try {
     connection();
 
-    const { title, description, prize } = req.body;
+    const { title, description, prize, } = req.body;
     if (!title || !description || !prize) {
       return messageHandler(res, 400, "All details of product required");
     }
-
-    const image = await req.file;
+      
+   
 
     // Upload image to Cloudinary
-    const uploadImg = await cloudinary.uploader.upload(image.path, {
+    const uploadImg = await cloudinary.uploader.upload(req.file.path, {
       folder: "ecommerce",
     });
 
@@ -330,7 +330,7 @@ apiRoute.post(async (req, res) => {
     }
   } catch (error) {
     console.log("Error:", error);
-    return messageHandler(res, 500, error,"Server Error");
+    return messageHandler(res, 500, error,"errors");
   }
 });
 

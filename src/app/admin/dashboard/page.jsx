@@ -740,6 +740,18 @@ const AdminDashboard = () => {
     setImage(e.target.files[0]); // Store the file object directly
   };
 
+
+
+  // const handleImageChange = (e) => {
+  //       const file = e.target.files?.[0]; // incoming selected file ....first one
+  //       const reader = new FileReader(); // creating an instance of file reader
+  //       reader.readAsDataURL(file);
+  //       reader.onload = () => {
+  //         if (reader.readyState === 2) {
+  //           setImage(reader.result);
+  //         }
+  //       };
+  //     };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -748,9 +760,9 @@ const AdminDashboard = () => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("prize", prize);
-    if (image) {
+    
       formData.append("image", image); // Append the file object directly
-    }
+    
 
     try {
       const res = await fetch("/api/products/Product", {
@@ -767,7 +779,7 @@ const AdminDashboard = () => {
         setPrize("");
         setImage(null);
       } else {
-        toast.error(data.error);
+        toast.error(data.error,"something went wrong");
       }
     } catch (error) {
       console.error("Error:", error);
