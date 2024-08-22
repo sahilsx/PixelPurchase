@@ -57,7 +57,7 @@ const AdminDashboard = () => {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("prize", prize);
-      formData.append("file", image);
+      formData.append("image", image);
       console.log("formss",formData)
 
       const res = await fetch("/api/products/Product", {
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
       console.log("data", data);
 
       if (data.message === "Product saved Successfully") {
-        toast.success("Product saved Successfully");
+        toast("Product saved Successfully");
         setTitle("");
         setDesciption("");
         setPrice("");
