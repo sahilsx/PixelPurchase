@@ -38,7 +38,7 @@ const handler=async (req, res) => {
     await connection();
     const {_id, title, description,prize,image}  = await req.body;
  
-   console.log("id",req.body)
+   
    if(!image){
     const updateBook = await Product.findByIdAndUpdate(_id,{
       title,
@@ -48,7 +48,7 @@ const handler=async (req, res) => {
       
     });
     if (updateBook) {
-      messageHandler(res, 200, "Book Updated Succesfully!");
+      return  messageHandler(res, 200, "Book Updated Succesfully!");
     } 
     
   }

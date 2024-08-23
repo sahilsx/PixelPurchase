@@ -107,6 +107,7 @@ export default function CustomPaginationActionsTable() {
   const [array, setarray] = React.useState([]);
   const [formData, setFormData] = React.useState({});
   const [_id, setid] = React.useState();
+  const [title, settitle] = React.useState();
   const [description, setdescription] = React.useState();
   const [prize, setprize] = React.useState();
   const [formDatas, setFormDatas] = React.useState({});
@@ -174,43 +175,21 @@ export default function CustomPaginationActionsTable() {
   const handleEditSubmit = async (e) => {
     try {
       e.preventDefault();
-      // const formDatas= new FormData();
-      // formDatas.append("_id", formData._id);
-      // formDatas.append("title", formData.title);
-      // formDatas.append("description",formData.description);
-      // formDatas.append("prize", formData.prize);
+      
 
-    //   const [formDatas, setFormDatas] = React.useState({
-    //     _id:formData._id,
-    //     title: formData.title,
-    //    description:formData.description,
-    //      prize:formData. prize 
-    //  });
-    //  console.log(formDatas._id)
-    //  console.log("forms",formDatas)
-      // if (imageFile) {
-      //   formDatas.append("image", imageFile); 
-      //   const response = await fetch("/api/products/edits", {
-      //     method: "PUT",
-         
-      //     body:formDatas,
-         
-      //     // No need to set Content-Type header when using FormData
-      //   });
-    
-      //   const result = await response.json();
-      //   // Append image file if present
-      // }
+   
       setid(formData._id)
       setdescription(formData.description)
       setprize(formData.prize)
+      settitle(formData.title)
       if(image){
         const final ={
           ...formDatas,
-         image,
-         _id,
+          _id,
+          title,
          description,
          prize,
+         image,
 
         }
         const response = await fetch("/api/products/edits", {
@@ -219,8 +198,7 @@ export default function CustomPaginationActionsTable() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(final),
-          // body:formDatas,
-          // No need to set Content-Type header when using FormData
+          
         });
     
         const result = await response.json();
@@ -240,6 +218,7 @@ export default function CustomPaginationActionsTable() {
       const final ={
         ...formDatas,
        _id,
+       title,
        description,
        prize,
 
@@ -250,8 +229,7 @@ export default function CustomPaginationActionsTable() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(final),
-        // body:formDatas,
-        // No need to set Content-Type header when using FormData
+      
       });
   
       const result = await response.json();

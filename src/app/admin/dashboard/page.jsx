@@ -724,7 +724,7 @@ import DataTable from "../Table/table";
 import ShipTable from "../shiptable/tabii";
 import UserTable from "../getusers/usertable";
 import { Add as AddIcon } from "@mui/icons-material";
-
+import IsaAuthenticated from"../aAuth/page"
 const AdminDashboard = () => {
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -809,6 +809,7 @@ const handleChange = (e) => {
 
   return (
     <>
+      <IsaAuthenticated/> 
       <ToastContainer />
       <Container maxWidth="lg" sx={{ marginTop: 4, marginBottom: 4 }}>
         <Typography variant="h3" align="center" gutterBottom>
