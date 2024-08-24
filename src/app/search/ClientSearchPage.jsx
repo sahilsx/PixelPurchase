@@ -664,7 +664,12 @@ const ClientSearchPage = () => {
     }
   }, [query]);
 
-  const handleBuy = (product) => {
+  const handleBuy = async (product) => {
+    const user= await sessionStorage.getItem("user");
+    if(!user){
+      router.push("/user/login")
+  
+      }
     setBuy(product);
     setOpens(false);
     setOpen(true);
@@ -679,9 +684,7 @@ const ClientSearchPage = () => {
     userId = sessionStorage.getItem("user");
   }
 
-  if (userId) {
-    setUserid(userId);
-  }
+  await setUserid(user)
     setLoading(true);
     try {
       const response = await fetch('/api/order/ship', {
@@ -789,7 +792,14 @@ const ClientSearchPage = () => {
         aria-describedby="modal-modal-description"
         className="animate__animated animate__fadeIn"
       >
-        <Box sx={style}>
+        <Box sx={{
+              margin: "30px auto",
+              width: { xs: '90%', sm: 500 }, // Responsive width
+              borderRadius: 2,
+              boxShadow: 10,
+              backgroundColor: "white",
+              padding: 4, // Added padding inside the modal for better spacing
+            }}>
           <Typography variant="h5" textAlign={"center"}>
             Buy Product
           </Typography>

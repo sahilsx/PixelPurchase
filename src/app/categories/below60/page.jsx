@@ -70,7 +70,12 @@ const Store = () => {
 
 
 
-  const handleBuy = (product) => {
+  const handleBuy = async (product) => {
+    const user= await sessionStorage.getItem("user");
+    if(!user){
+      router.push("/user/login")
+  
+      }
     setBuy(product)
     setOpens(false)
     setOpen(true);
@@ -263,7 +268,14 @@ const Store = () => {
    aria-labelledby="modal-modal-title"
    aria-describedby="modal-modal-description"
  >
-   <Box sx={style}>
+   <Box sx={{
+              margin: "30px auto",
+              width: { xs: '90%', sm: 500 }, // Responsive width
+              borderRadius: 2,
+              boxShadow: 10,
+              backgroundColor: "white",
+              padding: 4, // Added padding inside the modal for better spacing
+            }}>
      <Typography variant="h5" textAlign={"center"}>
        Buy Product
      </Typography>

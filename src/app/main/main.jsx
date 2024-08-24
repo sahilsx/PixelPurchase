@@ -15,8 +15,9 @@ import { Container,
 import { styled } from '@mui/material/styles';
 import { ToastContainer, toast } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
-// import { useRouter } from 'next/router';
+ import { useRouter } from 'next/navigation';
 import 'animate.css';
+import IsAuthenticated from "../user/Auth/page";
 // Define some dummy product data
 
 
@@ -100,7 +101,7 @@ const NewsletterSection = styled(Box)(({ theme }) => ({
 }));
 
 export default function Home() {
-//   const router = useRouter();
+  const router = useRouter();
 
 const [opens, setOpens] = React.useState(false); 
 const [open, setOpen] = React.useState(false);
@@ -173,7 +174,12 @@ setOpen(false);
  
 
 
-  const handleBuy = (product) => {
+  const handleBuy = async(product) => {
+    const user= await sessionStorage.getItem("user");
+    if(!user){
+      router.push("/user/login")
+  
+      }
     setBuy(product)
     setOpens(false)
     setOpen(true);
@@ -182,11 +188,10 @@ setOpen(false);
   };
 
   const handleShipSubmit = async (e) => {
+   
     const user= await sessionStorage.getItem("user");
-    if(user){
-      setUserid(user)
-  
-    }
+    await setUserid(user)
+   
     e.preventDefault();
     setLoading(true);
     try {
@@ -415,8 +420,9 @@ setOpen(false);
         </Grid>
       </Box>
 
-      {/* Best Sellers */}
+      
       <Box  my={4} marginTop={5}>
+     
         <Typography  padding={3} backgroundColor="black" fontWeight={200} color="pink" variant="h4" align="center">Trendindg Products</Typography>
         <Grid paddingLeft={2} paddingBottom={3} paddingRight={2} container spacing={4} style={{ marginTop: 20 }}>
           {data.map((offer) => (
@@ -571,7 +577,14 @@ setOpen(false);
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box  sx={{
+              margin: "30px auto",
+              width: { xs: '90%', sm: 500 }, // Responsive width
+              borderRadius: 2,
+              boxShadow: 10,
+              backgroundColor: "white",
+              padding: 4, // Added padding inside the modal for better spacing
+            }}>
             <Typography variant="h5" textAlign={"center"}>
               Buy Product
             </Typography>

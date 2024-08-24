@@ -139,7 +139,12 @@ const handleOpens = (product) => {
   setOpens(true);
 };
 
-const handleBuy = (product) => {
+const handleBuy = async (product) => {
+  const user= await sessionStorage.getItem("user");
+    if(!user){
+      router.push("/user/login")
+  
+      }
   setBuy(product)
   setOpens(false)
   setOpen(true);
@@ -162,9 +167,7 @@ const handleShipSubmit = async (e) => {
     userId = sessionStorage.getItem("user");
   }
 
-  if (userId) {
-    setUserid(userId);
-  }
+  await setUserid(user)
   try {
     const response = await fetch('/api/order/ship', {
       method: 'POST',
@@ -205,7 +208,7 @@ const handleShipSubmit = async (e) => {
   return (
     <>
       
-      <IsAuthenticated />
+      
       
 
       
@@ -265,7 +268,14 @@ const handleShipSubmit = async (e) => {
           aria-describedby="modal-modal-description"
            className="animate__animated animate__zoomIn "
         >
-          <Box sx={style}>
+          <Box sx={{
+              margin: "30px auto",
+              width: { xs: '90%', sm: 500 }, // Responsive width
+              borderRadius: 2,
+              boxShadow: 10,
+              backgroundColor: "white",
+              padding: 4, // Added padding inside the modal for better spacing
+            }}>
             <Typography variant="h5" textAlign={"center"}>
               Buy Product
             </Typography>
