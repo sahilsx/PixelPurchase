@@ -17,7 +17,7 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
  import 'react-toastify/dist/ReactToastify.css';
 import { styled } from '@mui/material/styles';
-
+import { useRouter } from 'next/navigation';
 import IsAuthenticated from "../user/Auth/page";
 
 
@@ -100,7 +100,7 @@ const Store = () => {
   const [Product, setProduct] = React.useState("");
   const [Buy, setBuy] = React.useState([]);
 
-
+  const router = useRouter();
   const [data, setData] = React.useState([]);
 
   const getRows = async () => {
@@ -144,7 +144,7 @@ const handleBuy = async (product) => {
     if(!user){
       router.push("/user/login")
   
-      }
+     }
   setBuy(product)
   setOpens(false)
   setOpen(true);

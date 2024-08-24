@@ -17,6 +17,7 @@ import { Container,
   import { styled } from '@mui/material/styles';
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
+  import { useRouter } from 'next/navigation';
 
 
 
@@ -62,7 +63,7 @@ const Store = () => {
   const [Mobile, setMobile] = React.useState("");
   const [Product, setProduct] = React.useState("");
   const [Userid, setUserid] = React.useState("");
-  
+  const router = useRouter();
 
 
 

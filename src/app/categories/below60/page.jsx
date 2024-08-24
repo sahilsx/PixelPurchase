@@ -17,7 +17,7 @@ import { Container,
   import { styled } from '@mui/material/styles';
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
-
+  import { useRouter } from 'next/navigation';
 
 
   const style = {
@@ -63,7 +63,7 @@ const Store = () => {
   const [Product, setProduct] = React.useState("");
   const [Userid, setUserid] = React.useState("");
   
-
+  const router = useRouter();
 
 
 
@@ -86,10 +86,9 @@ const Store = () => {
 
   const handleShipSubmit = async (e) => {
     const user= await sessionStorage.getItem("user");
-    if(user){
-      setUserid(user)
+    await setUserid(user)
   
-    }
+   
     e.preventDefault();
     setLoading(true);
     try {

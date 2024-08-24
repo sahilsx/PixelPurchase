@@ -592,6 +592,7 @@ import { styled } from '@mui/material/styles';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'animate.css'; // Import animate.css
+import { useRouter } from 'next/navigation';
 
 const style = {
   position: "absolute",
@@ -637,7 +638,7 @@ const ClientSearchPage = () => {
   const [opens, setOpens] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [selectedProduct, setSelectedProduct] = React.useState([]);
-
+  const router = useRouter();
   useEffect(() => {
     if (query) {
       // Fetch search results from your API
@@ -729,7 +730,7 @@ const ClientSearchPage = () => {
     <>
       <ToastContainer />
       <Box my={4}>
-        <Typography variant="h6" align="center">EXPLORE MORE</Typography>
+        
         <Grid container spacing={4} style={{ marginTop: 20 }}>
           {products.length > 0 ? (
             products.map((offer) => (
