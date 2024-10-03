@@ -37,7 +37,7 @@ const token = jwt.sign(
 );
 
 
-const resetUrl = `http://localhost:3000//user/forgotpassword?token=${token}`;
+const resetUrl = `https://pixelpurchase.vercel.app//user/forgotpassword?token=${token}`;
 const mailOptions = {
     from: "itxsaaho@gmail.com",
     to: `${user.email}`,
