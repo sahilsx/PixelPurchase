@@ -1,8 +1,3 @@
-
-
-
-
-
 // "use client";
 // import * as React from "react";
 // import { useSearchParams } from 'next/navigation'; // Correct hook import for Next.js 13+
@@ -296,9 +291,6 @@
 
 // export default SearchPage;
 
-
-
-
 // "use client";
 // import * as React from "react";
 // import { useSearchParams } from 'next/navigation'; // Correct hook import for Next.js 13+
@@ -586,13 +578,27 @@
 
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from 'next/navigation'; // Correct hook import for Next.js 13+
-import { Box, Typography, Button, Grid, Card, CardContent, CardMedia, Dialog, DialogTitle, DialogContent, DialogActions, Modal, TextField } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import 'animate.css'; // Import animate.css
-import { useRouter } from 'next/navigation';
+import { useSearchParams } from "next/navigation"; // Correct hook import for Next.js 13+
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Modal,
+  TextField,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "animate.css"; // Import animate.css
+import { useRouter } from "next/navigation";
 
 const style = {
   position: "absolute",
@@ -607,24 +613,24 @@ const style = {
 };
 
 const ProductCard = styled(Card)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  transition: 'transform 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'scale(1.05)',
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  transition: "transform 0.3s ease-in-out",
+  "&:hover": {
+    transform: "scale(1.05)",
   },
 }));
 
 const ProductImage = styled(CardMedia)({
   height: 400,
-  width: '100%',
-  objectFit: 'cover',
+  width: "100%",
+  objectFit: "cover",
 });
 
 const ClientSearchPage = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get('search'); // Get search query from URL
+  const query = searchParams.get("search"); // Get search query from URL
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [Buy, setBuy] = React.useState([]);
@@ -643,19 +649,19 @@ const ClientSearchPage = () => {
     if (query) {
       // Fetch search results from your API
       fetch(`/api/products/search?query=${query}`)
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error("Network response was not ok");
           }
           return response.json(); // Parse the response as JSON
         })
-        .then(data => {
+        .then((data) => {
           setProducts(data);
           console.log("data", data); // Update state with the fetched data
           setLoading(false);
         })
-        .catch(error => {
-          console.error('Error fetching search results:', error);
+        .catch((error) => {
+          console.error("Error fetching search results:", error);
           setLoading(false);
         });
     } else {
@@ -666,34 +672,36 @@ const ClientSearchPage = () => {
   }, [query]);
 
   const handleBuy = async (product) => {
-    const user= await sessionStorage.getItem("user");
-    if(!user){
-      router.push("/user/login")
-  
-      }
+    const user = await sessionStorage.getItem("user");
+    if (!user) {
+      router.push("/user/login");
+    }
     setBuy(product);
     setOpens(false);
     setOpen(true);
     setProduct(product.title);
     setPrice(product.prize);
+    setUserid(user);
   };
 
   const handleShipSubmit = async (e) => {
     e.preventDefault();
-    let userId;
-  if (typeof window !== 'undefined') {
-    userId = sessionStorage.getItem("user");
-  }
-
-  await setUserid(user)
     setLoading(true);
     try {
-      const response = await fetch('/api/order/ship', {
-        method: 'POST',
+      const response = await fetch("/api/order/ship", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ Userid, Name, Email, Mobile, Address, Product, Price }),
+        body: JSON.stringify({
+          Userid,
+          Name,
+          Email,
+          Mobile,
+          Address,
+          Product,
+          Price,
+        }),
       });
       const result = await response.json();
       if (result.message === "Order Confirmed Successfully!") {
@@ -730,18 +738,24 @@ const ClientSearchPage = () => {
     <>
       <ToastContainer />
       <Box my={4}>
-        
         <Grid container spacing={4} style={{ marginTop: 20 }}>
           {products.length > 0 ? (
             products.map((offer) => (
-              <Grid item xs={12} sm={6} md={4} key={offer._id} className="animate__animated animate__fadeIn">
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={offer._id}
+                className="animate__animated animate__fadeIn"
+              >
                 <ProductCard className="animate__animated animate__fadeIn animate__delay-1s">
                   <ProductImage
                     component="img"
                     image={offer.imageUrl}
                     alt={offer.title}
                   />
-                  <CardContent style={{ textAlign: 'center' }}>
+                  <CardContent style={{ textAlign: "center" }}>
                     <Typography variant="h5">{offer.title}</Typography>
                     <Typography variant="h6">${offer.prize}</Typography>
                     <Button
@@ -756,28 +770,51 @@ const ClientSearchPage = () => {
               </Grid>
             ))
           ) : (
-            <Typography variant="h6" className="animate__animated animate__fadeIn animate__delay-2s">No products found</Typography>
+            <Typography
+              variant="h6"
+              className="animate__animated animate__fadeIn animate__delay-2s"
+            >
+              No products found
+            </Typography>
           )}
         </Grid>
       </Box>
 
-      <Dialog open={opens} onClose={handleCloses} maxWidth="md" fullWidth className="animate__animated animate__fadeIn">
+      <Dialog
+        open={opens}
+        onClose={handleCloses}
+        maxWidth="md"
+        fullWidth
+        className="animate__animated animate__fadeIn"
+      >
         <DialogTitle>{selectedProduct.title}</DialogTitle>
         <DialogContent>
           <Box display="flex" flexDirection="row">
             {/* Big Image */}
             <Box flexShrink={0} mr={2}>
-              <img src={selectedProduct.imageUrl} alt={selectedProduct.title} style={{ width: '200px', height: '200px', objectFit: 'cover' }} />
+              <img
+                src={selectedProduct.imageUrl}
+                alt={selectedProduct.title}
+                style={{ width: "200px", height: "200px", objectFit: "cover" }}
+              />
             </Box>
             {/* Product Details */}
             <Box flexGrow={1}>
-              <Typography variant="h6">Price: ${selectedProduct.prize}</Typography>
-              <Typography variant="body1">Description: {selectedProduct.description}</Typography>
+              <Typography variant="h6">
+                Price: ${selectedProduct.prize}
+              </Typography>
+              <Typography variant="body1">
+                Description: {selectedProduct.description}
+              </Typography>
             </Box>
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" onClick={() => handleBuy(selectedProduct)} color="primary">
+          <Button
+            variant="contained"
+            onClick={() => handleBuy(selectedProduct)}
+            color="primary"
+          >
             Proceed To Buy
           </Button>
           <Button variant="contained" onClick={handleCloses} color="primary">
@@ -793,14 +830,16 @@ const ClientSearchPage = () => {
         aria-describedby="modal-modal-description"
         className="animate__animated animate__fadeIn"
       >
-        <Box sx={{
-              margin: "30px auto",
-              width: { xs: '90%', sm: 500 }, // Responsive width
-              borderRadius: 2,
-              boxShadow: 10,
-              backgroundColor: "white",
-              padding: 4, // Added padding inside the modal for better spacing
-            }}>
+        <Box
+          sx={{
+            margin: "30px auto",
+            width: { xs: "90%", sm: 500 }, // Responsive width
+            borderRadius: 2,
+            boxShadow: 10,
+            backgroundColor: "white",
+            padding: 4, // Added padding inside the modal for better spacing
+          }}
+        >
           <Typography variant="h5" textAlign={"center"}>
             Buy Product
           </Typography>
